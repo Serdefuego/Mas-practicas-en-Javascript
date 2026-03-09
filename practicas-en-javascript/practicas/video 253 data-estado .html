@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <ul id="actividades">
+        <li data-estado="completada">correr</li>
+        <li data-estado="completada">desayunar</li>
+        <li data-estado="completada">reunion</li>
+        <li data-estado="pendiente">almorzar</li>
+        <li data-estado="pendiente">cenar</li>
+    </ul>
+
+    <input type="button" id="boton" value="cantidad de tareas completadas">
+
+    <script>
+        //capturo el nodelist de los elementos li
+        let actividades=document.querySelectorAll("li")
+        
+        //capturo el evento del click
+        document.getElementById("boton").addEventListener("click",()=>{
+            //recorro con un for of cada elemento li
+            for (actividad of actividades){ 
+
+                //creo un elemento p vacio por cada li
+                let elemento=document.createElement("p")
+
+                //al p le pongo el nombre y el estado de la actividad accediendo a su dataset
+                elemento.textContent=`${actividad.textContent} = ${actividad.dataset.estado}`
+
+                //si el estado de la actividad se encuentra "completada" la agrego al dom
+                //esto va a mostrar en el navegador solo las actividades completadas
+                if(actividad.dataset.estado=="completada"){
+                    document.body.append(elemento)
+                }
+                
+            }
+        })
+
+    
+
+    </script>
+</body>
+</html>

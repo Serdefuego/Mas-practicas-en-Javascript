@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let suma=0
+        let contador=1
+        let cantidad=parseInt(prompt("ingrese una cantidad de números para obtener el porcentaje"))
+        
+
+        while(contador<=cantidad){
+            let numero=parseInt(prompt("ingrese un número"))
+            contador++
+            suma+=numero
+        }
+         let porcentaje=(suma/cantidad).toFixed(1)
+         document.write(`el porcentaje de los números ingresados fue ${porcentaje}`)
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let empleado=[
+            {
+                nombre:"marcos",
+                sueldos:[500000,4444,67777]
+            },
+            {
+                nombre:"juan",
+                sueldos:[1230,44,6747]
+            },
+            {
+                nombre:"pedro",
+                sueldos:[4,466,637]
+            }
+            ]
+
+        // Desestructuramos la propiedad correcta: sueldos //toma la propiedad sueldos del objeto “juan”.
+        const { sueldos } = empleado[1];
+
+        // [sueldoUno] = sueldos → toma el primer elemento del arreglo [1230, 44, 6747].
+        const [sueldoUno] = sueldos;
+            
+       document.write(`Aquí observamos el primer sueldo del segundo objeto del arreglo: ${sueldoUno}`);
+
+       
+    </script>
+   
+</body>
+</html>

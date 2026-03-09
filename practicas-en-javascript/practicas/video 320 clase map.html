@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //creamos una clase map
+
+        let frutas=new Map()
+        
+        //para agregar elementos al map uso el metodo .set()
+
+        frutas.set("manzana","20$")
+        frutas.set("banana","50$")
+        frutas.set("naranja","30$")
+
+        console.log(frutas)
+
+        // para eliminar elementos del map
+    /*    
+        frutas.clear()
+        console.log(frutas) */
+        for(let nombre of frutas.values()){
+            console.log(nombre)
+        }
+
+        
+    </script>
+</body>
+</html>

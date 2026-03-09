@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <textarea name="areaDeTextos" id="texto"></textarea>
+    <input type="button" value="validar" id="boton">
+
+    <script>
+        //capturo el evento del boton
+        document.getElementById("boton").addEventListener("click", () => {
+            //capturo el contenido del textarea
+            let texto = document.getElementById("texto").value;
+            //por medio de la validacion trycatch
+
+            //sifunciona pasa esto
+            try {
+
+                let objeto = JSON.parse(texto);
+
+                let p = document.createElement("p");
+                p.textContent = JSON.stringify(objeto);
+                document.body.append(p);
+          //si no funciona lanza un mensaje
+            } catch (error) {
+
+                alert("No es un formato JSON válido");
+
+            }
+
+        });
+    </script>
+</body>
+</html>

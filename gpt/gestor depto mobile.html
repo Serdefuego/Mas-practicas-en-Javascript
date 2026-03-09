@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gestión de Alquiler Responsive</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    padding: 10px;
+    margin: 0;
+  }
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  button, input, select {
+    font-size: 1rem;
+  }
+  #departamentos {
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+  }
+  .departamento {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+    border-left: 8px solid;
+    background: #fff;
+    box-sizing: border-box;
+  }
+  .cabecera {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .cabecera input[type=text] {
+    flex: 1 1 200px;
+    min-width: 150px;
+    padding: 6px;
+  }
+  .cabecera > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cabecera input[type=color] {
+    width: 36px;
+    height: 36px;
+    border: none;
+    cursor: pointer;
+  }
+  .eliminar {
+    background: #e53935;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .calendario, .mini-calendario {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(30px, 1fr));
+    gap: 4px;
+    margin-top: 8px;
+    overflow-x: auto;
+  }
+  .dia, .mini-dia {
+    border: 1px solid #ccc;
+    padding: 6px 3px;
+    text-align: center;
+    font-size: 12px;
+    min-width: 30px;
+    box-sizing: border-box;
+  }
+  .inquilino {
+    border: 1px solid #aaa;
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: 4px;
+  }
+  .disponible {
+    background: #e6ffe6;
+    padding: 6px 8px;
+    margin-top: 6px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    word-break: break-word;
+  }
+  form.inquilino-form {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  form.inquilino-form input[type=text],
+  form.inquilino-form input[type=date],
+  form.inquilino-form input[type=number],
+  form.inquilino-form input[type=color] {
+    padding: 6px;
+    font-size: 1rem;
+    flex: 1 1 120px;
+    min-width: 100px;
+    box-sizing: border-box;
+  }
+  form.inquilino-form button {
+    padding: 6px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  form.inquilino-form label {
+    font-size: 0.9rem;
+    width: 100%;
+    margin-top: 6px;
+  }
+  /* Scroll horizontal for calendars on small screens */
+  .calendario, .mini-calendario {
+    overflow-x: auto;
+  }
+  /* Media Queries */
+  @media (max-width: 600px) {
+    .cabecera {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .cabecera input[type=text] {
+      flex: 1 1 100%;
+    }
+    .cabecera > div {
+      justify-content: flex-start;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    form.inquilino-form input[type=text],
+    form.inquilino-form input[type=date],
+    form.inquilino-form input[type=number],
+    form.inquilino-form input[type=color] {
+      flex: 1 1 100%;
+      min-width: 0;
+    }
+    form.inquilino-form label {
+      margin-top: 12px;
+    }
+    form.inquilino-form button {
+      width: 100%;
+      margin-top: 12px;
+    }
+    .inquilino {
+      font-size: 0.9rem;
+    }
+  }
+  .resumen-total {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background: #fffae6;
+    padding: 8px;
+    border-radius: 6px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Gestión de Alquiler de Departamentos</h1>
+<button onclick="crearDepartamento()">➕ Agregar Departamento</button>
+
+<div id="departamentos"></div>
+
+<script>
+let data = JSON.parse(localStorage.getItem("alquileres")) || [];
+
+function guardar() {
+    localStorage.setItem("alquileres", JSON.stringify(data));
+}
+
+/* ================= DEPARTAMENTOS ================= */
+function crearDepartamento() {
+    data.push({
+        id: Date.now(),
+        nombre: "Nuevo Departamento",
+        color: "#2196f3",
+        inquilinos: []
+    });
+    guardar();
+    render();
+}
+
+function eliminarDepartamento(id) {
+    if (!confirm("¿Eliminar este departamento y todos sus datos?")) return;
+    data = data.filter(d => d.id !== id);
+    guardar();
+    render();
+}
+
+function editarNombreDepto(id, nombre) {
+    data.find(d => d.id === id).nombre = nombre;
+    guardar();
+}
+
+function editarColorDepto(id, color) {
+    data.find(d => d.id === id).color = color;
+    guardar();
+}
+
+/* ================= RENDER ================= */
+function render() {
+    const cont = document.getElementById("departamentos");
+    cont.innerHTML = "";
+
+    data.forEach(depto => {
+        const div = document.createElement("div");
+        div.className = "departamento";
+        div.style.borderColor = depto.color;
+        div.style.background = depto.color + "15";
+
+        div.innerHTML = `
+            <div class="cabecera">
+                <input aria-label="Nombre del departamento" value="${depto.nombre}"
+                       onchange="editarNombreDepto(${depto.id}, this.value)">
+                <div>
+                    <input aria-label="Color del departamento" type="color" value="${depto.color}"
+                           onchange="editarColorDepto(${depto.id}, this.value)">
+                    <button class="eliminar"
+                            onclick="eliminarDepartamento(${depto.id})"
+                            aria-label="Eliminar departamento">
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+
+            <div class="calendario" aria-label="Calendario general"></div>
+            
+            <div class="resumen-total" aria-live="polite"></div>
+
+            <div class="disponibilidades" aria-live="polite"></div>
+
+            <form class="inquilino-form" onsubmit="event.preventDefault(); agregarInquilino(${depto.id}, this)">
+                <input aria-label="Nombre inquilino" placeholder="Nombre inquilino" name="nombre" required>
+                <input aria-label="Color inquilino" type="color" name="color" value="#000000" required>
+
+                <label for="inicio-${depto.id}">Fecha inicio</label>
+                <input id="inicio-${depto.id}" aria-label="Fecha inicio alquiler" type="date" name="inicio" required>
+
+                <label for="fin-${depto.id}">Fecha fin</label>
+                <input id="fin-${depto.id}" aria-label="Fecha fin alquiler" type="date" name="fin" required>
+
+                <input aria-label="Precio por día" type="number" name="precio" placeholder="Precio día" min="1" required>
+
+                <label for="sena-${depto.id}">Seña</label>
+                <input id="sena-${depto.id}" aria-label="Seña del alquiler" type="number" name="sena" placeholder="Seña" min="0" value="0" required>
+
+                <button type="submit">Agregar Inquilino</button>
+            </form>
+
+            <div class="inquilinos" aria-live="polite"></div>
+        `;
+
+        cont.appendChild(div);
+        renderCalendarioGeneral(div.querySelector(".calendario"), depto.inquilinos);
+        renderDisponibilidad(div.querySelector(".disponibilidades"), depto);
+        renderInquilinos(div, depto);
+        renderResumenTotal(div.querySelector(".resumen-total"), depto);
+    });
+}
+
+/* ================= CALENDARIO GENERAL ================= */
+function renderCalendarioGeneral(cal, inquilinos) {
+    cal.innerHTML = "";
+    const hoy = new Date();
+    const año = hoy.getFullYear();
+    const mes = hoy.getMonth();
+    const diasMes = new Date(año, mes + 1, 0).getDate();
+
+    for (let d = 1; d <= diasMes; d++) {
+        const fecha = `${año}-${String(mes + 1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+        const div = document.createElement("div");
+        div.className = "dia";
+        div.textContent = d;
+
+        inquilinos.forEach(i => {
+            if (fecha >= i.inicio && fecha < i.fin) {
+                div.style.background = i.color;
+                div.style.color = "#fff";
+                div.title = i.nombre;
+            }
+        });
+
+        cal.appendChild(div);
+    }
+}
+
+/* ================= INQUILINOS ================= */
+function agregarInquilino(id, form) {
+    const depto = data.find(d => d.id === id);
+
+    const nombre = form.nombre.value.trim();
+    const color = form.color.value;
+    const inicio = form.inicio.value;
+    const fin = form.fin.value;
+    const precio = Number(form.precio.value);
+    const sena = Number(form.sena.value);
+
+    if (!nombre) {
+      alert("Ingrese nombre del inquilino.");
+      return;
+    }
+    if (!inicio || !fin || inicio >= fin) {
+        alert("Fechas inválidas");
+        return;
+    }
+
+    // Validar superposición con mismo nombre inquilino
+    if (depto.inquilinos.some(i => i.nombre.toLowerCase() === nombre.toLowerCase() && inicio < i.fin && fin > i.inicio)) {
+        alert("❌ Fechas superpuestas para el mismo inquilino");
+        return;
+    }
+
+    // Validar superposición global
+    if (depto.inquilinos.some(i => inicio < i.fin && fin > i.inicio)) {
+        alert("❌ Fechas superpuestas con otro inquilino");
+        return;
+    }
+
+    const dias = (new Date(fin) - new Date(inicio)) / 86400000;
+    const total = dias * precio;
+
+    depto.inquilinos.push({
+        nombre,
+        color,
+        inicio,
+        fin,
+        precio,
+        sena,
+        total,
+        resto: total - sena
+    });
+
+    guardar();
+    render();
+}
+
+/* ================= RENDER INQUILINOS ================= */
+function renderInquilinos(div, depto) {
+    const cont = div.querySelector(".inquilinos");
+    cont.innerHTML = "<h4>Inquilinos</h4>";
+
+    depto.inquilinos.forEach((i, index) => {
+        const box = document.createElement("div");
+        box.className = "inquilino";
+
+        box.innerHTML = `
+            <b>${i.nombre}</b><br>
+            ${i.inicio} → ${i.fin}<br>
+            Precio día: $${i.precio}<br>
+            Total: $${i.total} | Seña: $${i.sena}<br>
+            <b>Resto: $${i.resto}</b><br>
+            <button onclick="eliminarInquilino(${depto.id}, ${index})" aria-label="Eliminar inquilino ${i.nombre}">
+                Eliminar
+            </button>
+            <div class="mini-calendario" aria-label="Calendario inquilino"></div>
+        `;
+
+        cont.appendChild(box);
+        crearMiniCalendario(box.querySelector(".mini-calendario"), i);
+    });
+}
+
+function eliminarInquilino(id, index) {
+    data.find(d => d.id === id).inquilinos.splice(index, 1);
+    guardar();
+    render();
+}
+
+/* ================= MINI CALENDARIO ================= */
+function crearMiniCalendario(cal, inq) {
+    cal.innerHTML = "";
+    const hoy = new Date();
+    const año = hoy.getFullYear();
+    const mes = hoy.getMonth();
+    const diasMes = new Date(año, mes + 1, 0).getDate();
+
+    for (let d = 1; d <= diasMes; d++) {
+        const fecha = `${año}-${String(mes + 1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+        const div = document.createElement("div");
+        div.className = "mini-dia";
+        div.textContent = d;
+
+        if (fecha >= inq.inicio && fecha < inq.fin) {
+            div.style.background = inq.color;
+            div.style.color = "#fff";
+        }
+
+        cal.appendChild(div);
+    }
+}
+
+/* ================= DISPONIBILIDAD ================= */
+function renderDisponibilidad(cont, depto) {
+    cont.innerHTML = "<h4>Disponibilidad</h4>";
+
+    const hoy = new Date();
+    const año = hoy.getFullYear();
+    const mes = hoy.getMonth();
+
+    const inicioMes = new Date(año, mes, 1).toISOString().slice(0,10);
+    const finMes = new Date(año, mes + 1, 0).toISOString().slice(0,10);
+
+    const alquileres = [...depto.inquilinos].sort((a,b) =>
+        a.inicio.localeCompare(b.inicio)
+    );
+
+    let cursor = inicioMes;
+
+    if (alquileres.length === 0) {
+        cont.innerHTML += `<div class="disponible">${inicioMes} → ${finMes}</div>`;
+        return;
+    }
+
+    alquileres.forEach(a => {
+        if (cursor < a.inicio) {
+            cont.innerHTML += `<div class="disponible">${cursor} → ${a.inicio}</div>`;
+        }
+        cursor = a.fin;
+    });
+
+    if (cursor < finMes) {
+        cont.innerHTML += `<div class="disponible">${cursor} → ${finMes}</div>`;
+    }
+}
+
+/* ================ RESUMEN TOTAL ================ */
+function renderResumenTotal(cont, depto) {
+    const suma = depto.inquilinos.reduce((acc, i) => acc + i.total, 0);
+    cont.textContent = `Ganancia total estimada (suma de todos los alquileres): $${suma}`;
+}
+
+/* ================= INIT ================= */
+render();
+</script>
+
+</body>
+</html>

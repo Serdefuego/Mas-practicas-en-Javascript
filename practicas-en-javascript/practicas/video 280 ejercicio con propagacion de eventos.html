@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        div{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+            
+        }
+    </style>
+    <script>
+        //creo una variable para alojar la suma de los numeros
+        let suma
+        //creo un div y lo agrego al body
+        let div=document.createElement("div")
+        document.body.append(div)
+
+        //Creo un parrafo para alojar el resultado
+        let p=document.createElement("p")
+        p.id="resultado"
+        p.textContent="resultado de la  suma"
+        document.body.append(p)
+
+        //creo 10 input type number y los agrego al div
+        for(i=0;i<=10;i++){
+            let entrada=document.createElement("input")
+            entrada.type="number"
+            div.append(entrada)
+            
+        }
+        
+  
+    // captura por propagación
+    div.addEventListener("input", (evento) => {
+        //pregunta si el item que esta clickeado es un input entoces pone en cero a suma
+        //luego selecciona todos los input dentro del div y los recorre con un foreach
+        //y a la variable suma le acumula los valores pasados a numero 
+        //luego los muestra en el p resultado
+        if (evento.target.tagName === "INPUT") {
+            suma = 0
+
+            let inputs = div.querySelectorAll("input")
+            inputs.forEach(input => {
+                suma += Number(input.value)
+            })
+
+            p.textContent = "Resultado: " + suma
+        }
+    })
+</script>
+
+</body>
+</html>

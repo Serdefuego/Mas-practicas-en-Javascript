@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+    let numero = parseInt(prompt("Ingrese numero"));
+    let suma = 0;
+
+    function sumatoria(valor){
+        let value = valor;
+
+        for(let i = 0; i < valor; i++){
+            suma += value;
+            value -= 1;
+            console.log(value);
+        }
+
+        alert(suma);
+    }
+
+    if(numero > 0){
+        sumatoria(numero);
+    } else {
+        alert("Ingrese un número mayor a 0");
+    }
+</script>
+</body>
+</html>

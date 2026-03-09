@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Gestión de Alquiler</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f2f2f2;
+    padding: 20px;
+}
+
+.departamento {
+    background: #fff;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-top: 10px;
+}
+
+.dia {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.inquilino {
+    border: 1px solid #aaa;
+    padding: 6px;
+    margin-top: 6px;
+    border-radius: 4px;
+}
+
+input {
+    margin: 3px 0;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Gestión de Alquiler de Departamentos</h1>
+<button onclick="crearDepartamento()">➕ Agregar Departamento</button>
+
+<div id="departamentos"></div>
+
+<script>
+let data = JSON.parse(localStorage.getItem("alquileres")) || [];
+
+function guardar() {
+    localStorage.setItem("alquileres", JSON.stringify(data));
+}
+
+function crearDepartamento() {
+    data.push({
+        id: Date.now(),
+        nombre: "Nuevo Departamento",
+        inquilinos: []
+    });
+    guardar();
+    render();
+}
+
+function render() {
+    const cont = document.getElementById("departamentos");
+    cont.innerHTML = "";
+
+    data.forEach(depto => {
+        const div = document.createElement("div");
+        div.className = "departamento";
+
+        div.innerHTML = `
+            <input value="${depto.nombre}" 
+                   onchange="editarNombreDepto(${depto.id}, this.value)">
+            
+            <div>
+                <input placeholder="Nombre inquilino" class="nombre">
+                <input type="color" class="color">
+                <input type="date" class="inicio">
+                <input type="date" class="fin">
+                <input type="number" placeholder="Precio día" class="precio">
+                <input type="number" placeholder="Seña" class="sena">
+                <button onclick="agregarInquilino(${depto.id}, this)">Agregar Inquilino</button>
+            </div>
+
+            <div class="inquilinos"></div>
+            <div class="calendario"></div>
+        `;
+
+        cont.appendChild(div);
+        crearCalendario(div.querySelector(".calendario"), depto.inquilinos);
+        renderInquilinos(div, depto);
+    });
+}
+
+function editarNombreDepto(id, nombre) {
+    const depto = data.find(d => d.id === id);
+    depto.nombre = nombre;
+    guardar();
+}
+
+function crearCalendario(cal, inquilinos) {
+    cal.innerHTML = "";
+
+    const hoy = new Date();
+    const año = hoy.getFullYear();
+    const mes = hoy.getMonth();
+    const diasMes = new Date(año, mes + 1, 0).getDate();
+
+    for (let d = 1; d <= diasMes; d++) {
+        const fecha = `${año}-${String(mes + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        const div = document.createElement("div");
+        div.className = "dia";
+        div.textContent = d;
+
+        inquilinos.forEach(i => {
+            if (fecha >= i.inicio && fecha < i.fin) {
+                div.style.background = i.color;
+                div.style.color = "#fff";
+            }
+        });
+
+        cal.appendChild(div);
+    }
+}
+
+function agregarInquilino(id, btn) {
+    const depto = data.find(d => d.id === id);
+    const c = btn.parentElement;
+
+    const inicio = c.querySelector(".inicio").value;
+    const fin = c.querySelector(".fin").value;
+    const precio = Number(c.querySelector(".precio").value);
+    const sena = Number(c.querySelector(".sena").value);
+
+    const dias = (new Date(fin) - new Date(inicio)) / 86400000;
+    const total = dias * precio;
+
+    depto.inquilinos.push({
+        nombre: c.querySelector(".nombre").value,
+        color: c.querySelector(".color").value,
+        inicio,
+        fin,
+        precio,
+        sena,
+        total,
+        resto: total - sena
+    });
+
+    guardar();
+    render();
+}
+
+function renderInquilinos(div, depto) {
+    const cont = div.querySelector(".inquilinos");
+    cont.innerHTML = "";
+
+    depto.inquilinos.forEach((i, index) => {
+        const d = document.createElement("div");
+        d.className = "inquilino";
+        d.innerHTML = `
+            <b>${i.nombre}</b><br>
+            ${i.inicio} → ${i.fin}<br>
+            Total: $${i.total}<br>
+            Seña: $${i.sena}<br>
+            <b>Resto a pagar: $${i.resto}</b><br>
+            <button onclick="eliminarInquilino(${depto.id}, ${index})">Eliminar</button>
+        `;
+        cont.appendChild(d);
+    });
+}
+
+function eliminarInquilino(id, index) {
+    const depto = data.find(d => d.id === id);
+    depto.inquilinos.splice(index, 1);
+    guardar();
+    render();
+}
+
+render();
+</script>
+
+</body>
+</html>

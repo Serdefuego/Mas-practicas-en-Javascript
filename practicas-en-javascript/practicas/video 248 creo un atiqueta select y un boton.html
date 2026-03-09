@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <label for="tipos">Tipos de control de input</label>
+        <select id="tipos"></select>
+    </div>
+
+    <div>
+        <input type="button" id="mostrar" value="Mostrar">
+    </div>
+
+    <div>
+        <input type="text" id="ejemplo">
+    </div>
+
+    <p id="descripccion"></p>
+   
+    <script>
+        //aqui el arreglo de objetos con los tipos y ñas descripcciones de los options
+        const tiposInput = [
+            {tipo:"text",descripccion:"Campo de texto para introducir texto."},
+            {tipo:"number",descripccion:"Campo para introducir números."},
+            {tipo:"email",descripccion:"Campo para introducir direcciones de correo."},
+            {tipo:"password",descripccion:"Campo para introducir contraseñas."},
+            {tipo:"checkbox",descripccion:"Casilla de verificación."},
+            {tipo:"radio",descripccion:"Botón de selección única."},
+            {tipo:"submit",descripccion:"Botón para enviar un formulario."},
+            {tipo:"reset",descripccion:"Botón para resetear un formulario."},
+            {tipo:"file",descripccion:"Campo para seleccionar archivos."},
+            {tipo:"date",descripccion:"Campo para seleccionar una fecha."},
+            {tipo:"time",descripccion:"Campo para seleccionar una hora."},
+            {tipo:"datetime-local",descripccion:"Campo para seleccionar fecha y hora local."},
+            {tipo:"week",descripccion:"Campo para seleccionar una semana del año."},
+            {tipo:"range",descripccion:"Control deslizante para un valor numérico."},
+            {tipo:"search",descripccion:"Campo de búsqueda."},
+            {tipo:"tel",descripccion:"Campo para introducir número telefónico."},
+            {tipo:"url",descripccion:"Campo para introducir una dirección URL."},
+            {tipo:"color",descripccion:"Campo para seleccionar un color."}
+        ];
+
+        //capturo la etiqueta select para agragarle un innerHTML donde pondre todas las inputs que hay en elarreglo 
+        document.querySelector("#tipos").innerHTML =
+
+        //tiposInput.map(...) recorre cada objeto y devuelve un string HTML <option value="...">...</option> para cada tipo.
+        //join("") une todos esos strings en uno solo (sin comas).
+        //innerHTML = ... inserta ese HTML dentro del <select>, así el desplegable tiene una opción por cada tipo del array.
+            tiposInput.map(obj => `<option value="${obj.tipo}">${obj.tipo}</option>`).join("");
+
+
+        // capturamos el Evento botón mostrar 
+        document.querySelector("#mostrar").addEventListener("click", () => {
+
+            //capturo en una variable lo que selecciono el usuario
+            const tipo = document.querySelector("#tipos").value;
+            //capturo el elemento de ejemplo y le cambio el type al valor de tipo seleccionado
+            document.querySelector("#ejemplo").type = tipo;
+
+            //capturo el elemento donde muestro la descripcion y busco mediante el metodo find dentro de los tipos de input
+            //la descripccion que coincida con el objeto.tipo
+            document.querySelector("#descripccion").textContent =
+                tiposInput.find(obj => obj.tipo === tipo).descripccion;
+        });
+    </script>
+</body>
+</html>

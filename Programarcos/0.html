@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let suma=0
+        let contador=1
+
+        let cantidad=parseInt(prompt("ingrese cantidad"))
+
+        while(contador<=cantidad){
+            let numero=parseInt(prompt("ingrese número"))
+            contador++
+            suma+=numero
+        }
+
+        let promedio=(suma/cantidad).toFixed(1)
+        alert(`el promedio de los números ingrasados es de ${promedio}`)
+
+    </script>
+    
+</body>
+</html>

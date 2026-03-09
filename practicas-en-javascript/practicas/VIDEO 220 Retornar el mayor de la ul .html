@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Retornar el mayor de la lista</h1>
+
+    <ul id="lista">
+        <li>1989</li>
+        <li>1960</li>
+        <li>2025</li>
+    </ul>
+
+
+    <script>
+
+        let nodos = document.getElementById("lista").children;
+
+        // Convertimos la colección de nodos en un arreglo de números
+        let arreglo = [];
+
+        for (let i = 0; i < nodos.length; i++) {
+            arreglo.push(Number(nodos[i].textContent));
+        }
+
+        // Obtenemos el mayor con Math.max
+        let mayorValor = Math.max(...arreglo);
+
+        // Mostramos el resultado
+        let mayor = document.createElement("h2");
+        mayor.textContent = "El número mayor es: " + mayorValor;
+        document.body.append(mayor);
+
+    </script>
+</body>
+</html>

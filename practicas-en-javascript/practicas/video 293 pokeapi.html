@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .contenedor{
+            background-color: aquamarine;
+            border-radius: 15px;
+            width: 400px;
+            height: 400px;
+            border: 2px solid black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+    </style>
+    <h1>pokeapi</h1>
+    <div>
+        <label for="nombre">ingrese nombre del pokemon</label>
+        <input type="text" id="nombre">
+<script>
+    document.body.addEventListener("keyup", (evento) => {
+        if (evento.key === "Enter") {
+
+            let nombre = document.getElementById("nombre").value
+                .toLowerCase() //PARA A MINUSCULA LO QUE SE ESCRIBE
+                .trim();  //RECORTA LOS ESPACIOS VACIOS
+
+            fetch(`https://pokeapi.co/api/v2/pokemon/${nombre}/`)
+                .then(respuesta => respuesta.json())
+                .then(data => card(data))
+                .catch(() => alert("Pokémon no encontrado "));//ESTA LINEA MANEJA LA AUSENCIA DE ELEMENTO
+        }
+    });
+
+    function card(pokemon) {
+
+        //  BORRA la card anterior si existe CAPTURA EL CONTENEDOR Y LUEGO LO REMOVE()
+        let anterior = document.querySelector(".contenedor");
+        if (anterior) anterior.remove();
+
+        //CREA EL CONTENEDOR Y LE ASIGNA LA CLASE CONENEDOR
+        let contenedor = document.createElement("div");
+        contenedor.className = "contenedor";
+
+        //TOMA EL ID Y EL NOMBRE Y LOS PONE EN UN P
+        let identificador = document.createElement("p");
+        identificador.textContent = `id: ${pokemon.id}`;
+
+        let nombre = document.createElement("p");
+        nombre.textContent = `nombre: ${pokemon.name}`;
+
+        //CREA ETIQUETA IMG TOMA EL SRC DE LA RESPUESTA Y ADQUIERE LA IMAGEN LUEGO ASIGNA POR DEFECTO SUS MEDIDAD
+        let img = document.createElement("img");
+        img.src = pokemon.sprites.front_default;
+        img.style.width = "200px";
+        img.style.margin = "0 auto";
+
+        contenedor.append(nombre, identificador, img);
+        document.body.append(contenedor);
+    }
+</script>
+</body>
+</html>

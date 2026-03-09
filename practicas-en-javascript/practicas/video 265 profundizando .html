@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!--dejo el style aca para hacer mas comodo-->
+    <style>
+        .rojo { background-color: red; }
+        .verde { background-color: green; }
+        .azul { background-color: blue; }
+        .blanco { background-color: white; }
+
+        .box {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+
+    <div id="panel">
+    <div class="box rojo" data-color="rojo"></div>
+    <div class="box verde" data-color="verde"></div>
+    <div class="box azul" data-color="azul"></div>
+
+    <!-- dejo el script aca para hacer mas comodo -->
+
+<script>
+    const panel = document.getElementById("panel");
+
+    panel.addEventListener("mouseover", (evento) => {
+        if (evento.target.classList.contains("box")) {
+            const color = evento.target.dataset.color;
+            document.body.className = color;
+        }
+    });
+
+    panel.addEventListener("mouseleave", () => {
+        document.body.className = "blanco";
+    });
+</script>
+</body>
+</html>
