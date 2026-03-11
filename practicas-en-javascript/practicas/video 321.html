@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Map ejemplo</title>
+</head>
+
+<body>
+
+<script>
+
+let frase="grande es la casa , pero la grandeza de la casa no se compara con la grandeza de su corazón"
+
+let mapa = new Map()
+let arreglo = []
+
+function mapeando(frase){
+
+    let recorte = frase.split(" ")
+
+    for (let palabra of recorte){
+        mapa.set(palabra, palabra.length)
+    }
+}
+
+function destructurar(elementomapa){
+
+    for (let [clave, valor] of elementomapa){
+        arreglo.push(clave, valor)
+    }
+
+    alert(arreglo)
+}
+
+function ordenarArreglo(arreglo){
+    arreglo.sort((a,b)=>a-b)
+    return (arreglo)
+}
+mapeando(frase)
+ordenarArreglo(arreglo)
+destructurar(mapa)
+
+console.log(mapa)
+
+</script>
+
+</body>
+</html>
