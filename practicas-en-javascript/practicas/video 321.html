@@ -11,7 +11,6 @@
 let frase="grande es la casa , pero la grandeza de la casa no se compara con la grandeza de su corazón"
 
 let mapa = new Map()
-let arreglo = []
 
 function mapeando(frase){
 
@@ -22,22 +21,18 @@ function mapeando(frase){
     }
 }
 
-function destructurar(elementomapa){
+function ordenarMapa(mapa){
 
-    for (let [clave, valor] of elementomapa){
-        arreglo.push(clave, valor)
-    }
+    let arreglo = [...mapa.entries()]
 
-    alert(arreglo)
+    arreglo.sort((a,b)=>a[1]-b[1])
+
+    console.log(arreglo)
+
 }
 
-function ordenarArreglo(arreglo){
-    arreglo.sort((a,b)=>a-b)
-    return (arreglo)
-}
 mapeando(frase)
-ordenarArreglo(arreglo)
-destructurar(mapa)
+ordenarMapa(mapa)
 
 console.log(mapa)
 

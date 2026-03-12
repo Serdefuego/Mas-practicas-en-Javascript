@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const usuarios = [
+        {
+        nombre: 'Juan',
+        email: 'juan@example.com',
+        intereses: ['Deportes', 'Música', 'Viajes']
+        },
+        {
+        nombre: 'María',
+        email: 'maria@example.com',
+        intereses: ['Cocina', 'Arte']
+        },
+        {
+        nombre: 'Carlos',
+        email: 'carlos@example.com',
+        intereses: ['Deportes', 'Viajes', 'Arte']
+        },
+        {
+        nombre: 'Laura',
+        email: 'laura@example.com',
+        intereses: ['Música', 'Cocina', 'Viajes']
+        }
+        ]
+
+        let interesUser = new Set()
+
+        for (let usuario of usuarios){
+
+            for (let interes of usuario.intereses){
+                interesUser.add(interes)
+            }
+
+        }
+
+        console.log(interesUser)
+
+     
+
+        interesUser.forEach(element => {
+            let p=document.createElement("p")
+            p.textContent=element
+            document.body.appendChild(p)            
+        });
+
+</script>
+</body>
+</html>
