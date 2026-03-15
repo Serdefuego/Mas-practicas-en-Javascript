@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let numeros = [3,5,3,8,2,5,9,1,8,2]
+/*         eliminar repetios,sumar todo y mostrar lista */
+
+        let conjunto=new Set()
+
+        numeros.forEach(numerito=>conjunto.add(numerito))
+        
+        let valores=[...conjunto]
+        let total=valores.reduce((acumulado,valor)=>acumulado+valor,0)
+        console.log(valores)
+        console.log(total)
+
+        let aleatorio=Math.floor(Math.random()*10)+1
+        if (conjunto.has(aleatorio)){
+            alert("se encuentra ese numero")
+        }
+    </script>
+</body>
+</html>

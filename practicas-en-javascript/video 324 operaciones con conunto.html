@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+ <script>
+
+function Persona(nombre,intereses){
+    this.nombre = nombre
+    this.intereses = intereses
+
+    this.mostrar = function(){
+        document.write(this.nombre + " - " + this.intereses + "<br>")
+    }
+}
+
+let comunidad = []
+
+for (let i=0; i<3; i++){
+
+    let nombre = prompt("ingrese nombre")
+
+    let intereses = []
+
+    for (let j=0; j<3; j++){
+        let interes = prompt("ingrese interes")
+        intereses.push(interes)
+    }
+
+    let persona = new Persona(nombre, intereses)
+
+    comunidad.push(persona)
+}
+
+console.log(comunidad)
+
+let grupo = new Set()
+
+comunidad.forEach(persona=>{
+    for (let interes of persona.intereses){
+        grupo.add(interes)
+    }
+})
+
+console.log("intereses sin repetir:", [...grupo])
+
+</script>
+</body>
+</html>
