@@ -8,6 +8,7 @@
     
  <script>
 
+//creo un constructor de objeto con nombre ,interses y un metodo mostrar
 function Persona(nombre,intereses){
     this.nombre = nombre
     this.intereses = intereses
@@ -16,9 +17,10 @@ function Persona(nombre,intereses){
         document.write(this.nombre + " - " + this.intereses + "<br>")
     }
 }
-
+//creo un arreglo comunidad donde se alojan los objetos personas
 let comunidad = []
 
+//se crean 3 pesonas con 3 intereses que se alojan en un arreglo llamado intereses y se guardan en comunidad
 for (let i=0; i<3; i++){
 
     let nombre = prompt("ingrese nombre")
@@ -35,9 +37,14 @@ for (let i=0; i<3; i++){
     comunidad.push(persona)
 }
 
+
 console.log(comunidad)
 
+//creamos un conjunto llamado grupo
 let grupo = new Set()
+
+//por cada persona extraemos los intereses y lo guardamos en el conjunto grupo, la caracteristica del grupo que no guarda duplicados
+//por lo tanto obtendremos la union
 
 comunidad.forEach(persona=>{
     for (let interes of persona.intereses){
@@ -46,6 +53,8 @@ comunidad.forEach(persona=>{
 })
 
 console.log("intereses sin repetir:", [...grupo])
+
+//ahora pasamo a buscar la diferencia y luego la intersepccion de intereses
 
 </script>
 </body>

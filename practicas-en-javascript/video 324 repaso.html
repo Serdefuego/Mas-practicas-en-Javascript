@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //creo objetos con arreglos para repasar recorrerlos
+
+        let personas = [
+    {
+        nombre: "Marcos",
+        intereses: ["música", "programación", "docencia", "juegos"]
+    },
+    {
+        nombre: "Lucía",
+        intereses: ["arte", "música", "lectura", "juegos"]
+    },
+    {
+        nombre: "Juan",
+        intereses: ["deporte", "fútbol", "música", "gimnasio"]
+    },
+    {
+        nombre: "Sofía",
+        intereses: ["fotografía", "viajes", "cine", "lectura"]
+    },
+    {
+        nombre: "Mateo",
+        intereses: ["tecnología", "videojuegos", "programación", "cine"]
+    }
+];
+
+// creo un conjunto con todos los interese sin repetir es decir la unio de conjuntos
+//para ello creo el conjunto
+let union=new Set()
+//recorro arreglo personas
+personas.forEach(persona => {
+    persona.intereses.forEach(interes => union.add(interes));
+});
+
+
+union.forEach(gusto=>{
+    let p=document.createElement("p")
+    p.textContent=gusto
+    document.body.appendChild(p)
+})
+
+//ahora la diferencia entre los intereses de mateo y de marcos
+
+    let interesMarcos = [];
+    let interesMateo = [];
+
+    for (let persona of personas) {
+        if (persona.nombre == "Marcos") {
+            interesMarcos = persona.intereses;
+        }
+        if (persona.nombre == "Mateo") {
+            interesMateo = persona.intereses;
+        }
+    }
+
+    // convierto a Set para poder usar .has()
+    let setMateo = new Set(interesMateo);
+
+    // diferencia: lo que tiene Marcos y NO Mateo
+    let diferencia = new Set(
+        interesMarcos.filter(interes => !setMateo.has(interes))
+    );
+
+    // mostrar en pantalla
+    diferencia.forEach(gusto => {
+        let p = document.createElement("p");
+        p.textContent = "Diferencia: " + gusto;
+        document.body.appendChild(p);
+    });
+
+    let intersepccion=new Set([...interesMarcos].filter(interes=>setMateo.has(interes)))
+     // mostrar en pantalla
+        intersepccion.forEach(gusto => {
+        let p = document.createElement("p");
+        p.textContent = "coincidencias: " + gusto;
+        document.body.appendChild(p);
+    });
+
+    </script>
+</body>
+</html>

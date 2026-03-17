@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const programadores = [
+            {
+                nombre: "Juan",
+                email: "juan@yahoo.com",
+                lenguajes: new Set(["Java", "C++", "Python", "JavaScript"]),
+            },
+            {
+                nombre: "Maria",
+                email: "maria@gmail.com",
+                lenguajes: new Set(["JavaScript", "Python", "C"]),
+            },
+            {
+                nombre: "ana",
+                email: "ana@hotmail.com",
+                lenguajes: new Set(["JavaScript", "Go"]),
+            },
+            ];
+
+        //conjunto donde se alojara la union de conjunto
+        let union=new Set()
+    
+        //funcion para crear la union y mostrarlo en el dom
+        function uniones(conjunto){
+                      
+            programadores.forEach(programador=>{
+                for(lenguajes of programador.lenguajes){
+                    union.add(lenguajes)
+                }
+            })
+
+            let h2=document.createElement("h2")
+            h2.textContent="lenguajes que maneja la empresa"
+            document.body.appendChild(h2)
+
+            union.forEach(lenguaje=>{
+                let p=document.createElement("p")
+                p.textContent=lenguaje
+                document.body.appendChild(p)
+                })
+        }
+   
+let intersepccion=new Set()
+        function unicoEnComun(){
+            programadores.forEach(empleado=>{
+                for(lenguaje of empleado.lenguajes){
+                    if(!union.has(lenguaje)){
+                        intersepccion.add(lenguaje)
+                    }
+                }
+            })
+
+
+            let h2=document.createElement("h2")
+            h2.textContent="lenguajes que hay en comun"
+            document.body.appendChild(h2)
+
+            intersepccion.forEach(lenguaje=>{
+                let p=document.createElement("p")
+                p.textContent=lenguaje
+                document.body.appendChild(p)
+                })
+
+        }
+
+        //llamada a la funcion uniones
+             uniones(union)
+             unicoEnComun(union)
+
+  
+    </script>
+</body>
+</html>
