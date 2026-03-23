@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div>
+        <label for="nombre" id="nombre">ingrese nombre</label>
+        <input type="text" id="entradaNombre">
+    </div>
+    <input type="button" value="ingreso" id="boton">
+    <style>
+        .fondo{
+            background-color: blue;
+        }
+    </style>
+    <script>
+        document.getElementById("boton").addEventListener("click",()=>{
+              let nombre=document.getElementById("entradaNombre").value
+              let valor=localStorage.setItem("nombre",nombre)
+            document.body.className="fondo"
+        })
+      
+
+
+    </script>
+</body>
+</html>

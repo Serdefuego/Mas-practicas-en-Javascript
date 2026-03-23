@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Agenda</h1>
+
+    <div>
+        <label for="fecha">FECHA</label>
+        <input type="date" name="fecha" id="fecha">
+    </div>
+    <div>
+        <label for="actividades">ACTIVIDADES</label>
+        <textarea name="actividades" id="actividades"></textarea>
+    </div>
+
+    <script>
+        //capturo los inputs
+        let fecha=document.getElementById("fecha")
+        let actividad=document.getElementById("actividades")
+
+        
+        //le agrego una escucha de evento al input del text area
+        actividad.addEventListener("input",()=>{
+            //guardo en el localStorage la fecha y el valor del textArea
+            localStorage.setItem(fecha.value,actividad.value)
+        })
+
+        //capturo el evento del input date y vacio el textArea
+        //creo una variable llamada contenido donde traigo del locarStorage el valor de la fecha
+        //si esa fecha posee contenido, el value del textArea se cargara con el contenido 
+        fecha.addEventListener("input",()=>{
+            actividad.value=""
+            const contenido=localStorage.getItem(fecha.value)
+            if(contenido!=null){
+                actividad.value=contenido
+            }
+        })
+
+
+       
+    </script>
+</body>
+</html>

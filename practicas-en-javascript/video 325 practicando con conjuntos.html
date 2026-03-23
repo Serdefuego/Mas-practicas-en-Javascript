@@ -6,6 +6,7 @@
 </head>
 <body>
     <script>
+        //arreglo de progamadores con su nombre y lenguajes de programacion
         const programadores = [
             {
                 nombre: "Juan",
@@ -28,6 +29,7 @@
         let union=new Set()
     
         //funcion para crear la union y mostrarlo en el dom
+
         function uniones(conjunto){
                       
             programadores.forEach(programador=>{
@@ -48,31 +50,35 @@
         }
    
 let intersepccion=new Set()
-        function unicoEnComun(){
-            programadores.forEach(empleado=>{
-                for(lenguaje of empleado.lenguajes){
-                    if(!union.has(lenguaje)){
-                        intersepccion.add(lenguaje)
-                    }
-                }
-            })
 
+function EnComun(){
+    // tomo los lenguajes del primer programador
+    intersepccion = new Set(programadores[0].lenguajes)
 
-            let h2=document.createElement("h2")
-            h2.textContent="lenguajes que hay en comun"
-            document.body.appendChild(h2)
-
-            intersepccion.forEach(lenguaje=>{
-                let p=document.createElement("p")
-                p.textContent=lenguaje
-                document.body.appendChild(p)
-                })
-
+    // recorro los demás
+    programadores.forEach(programador => {
+        for (let lenguaje of intersepccion) {
+            if (!programador.lenguajes.has(lenguaje)) {
+                intersepccion.delete(lenguaje)
+            }
         }
+    })
+
+    let h2 = document.createElement("h2")
+    h2.textContent = "lenguajes que hay en comun"
+    document.body.appendChild(h2)
+
+    intersepccion.forEach(lenguaje => {
+        let p = document.createElement("p")
+        p.textContent = lenguaje
+        document.body.appendChild(p)
+    })
+}
+
 
         //llamada a la funcion uniones
              uniones(union)
-             unicoEnComun(union)
+             EnComun(union)
 
   
     </script>
