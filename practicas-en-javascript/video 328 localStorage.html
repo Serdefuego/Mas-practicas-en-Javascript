@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>recetas</h2>
+
+<div>
+    <label for="receta">receta</label>
+    <input type="text" name="receta" id="receta">
+    <div>
+        <textarea name="ingredientes" id="ingredientes"></textarea>
+    </div>
+    <input type="button" value="guardar" id="guardar">
+    <input type="button" value="mostrar" id="mostrar">
+    
+
+    <script>
+        let nombre=document.getElementById("receta")
+        let ingredientes=document.getElementById("ingredientes")
+
+        let guardar=document.getElementById("guardar")
+        let mostrar=document.getElementById("mostrar")
+
+        guardar.addEventListener("click",()=>{
+              localStorage.setItem(nombre.value, ingredientes.value)
+
+            // limpiar campos
+            nombre.value = ""
+            ingredientes.value = ""
+        })
+            mostrar.addEventListener("click", () => {
+            // busca en localStorage
+            let datos = localStorage.getItem(nombre.value)
+
+            if (datos !== null) {
+                ingredientes.value = datos
+            } else {
+                alert("No existe esa receta")
+            }
+        })
+    </script>
+</div>
+</body>
+</html>
