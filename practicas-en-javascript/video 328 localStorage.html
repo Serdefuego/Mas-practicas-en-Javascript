@@ -15,6 +15,7 @@
     </div>
     <input type="button" value="guardar" id="guardar">
     <input type="button" value="mostrar" id="mostrar">
+    <input type="button" value="limpiar" id="limpiar">
     
 
     <script>
@@ -23,7 +24,11 @@
 
         let guardar=document.getElementById("guardar")
         let mostrar=document.getElementById("mostrar")
+        let limpiar=document.getElementById("limpiar")
 
+        limpiar.addEventListener("click",()=>{
+            localStorage.clear()
+        })
         guardar.addEventListener("click",()=>{
               localStorage.setItem(nombre.value, ingredientes.value)
 
