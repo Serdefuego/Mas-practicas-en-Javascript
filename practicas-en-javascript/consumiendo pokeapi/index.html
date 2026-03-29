@@ -25,12 +25,13 @@
     .then(respuesta => respuesta.json())
     .then(pokemones => {
 
-        listaPokemones = arreglo(pokemones).results // ✅ guardo el array
+        //guardo el arreglo respuesta de la api en la variable listaPokemones
+        listaPokemones = arreglo(pokemones).results 
 
-        //selecciono la etiqueta selector
+        //selecciono la etiqueta selector y la guardo en la variable selector
         let selector = document.getElementById("selector")
         
-        //por cada pokemon dentro del arreglo pokemon
+        //recorro el arreglo respues y por cada pokemon dentro del arreglo pokemon
         listaPokemones.forEach(objeto => {
             let opccion = document.createElement("option")
             opccion.value = objeto.name
@@ -44,13 +45,18 @@
         return pokemones
     }
 
-    // 🎯 EVENTO CHANGE
+    //  EVENTO CHANGE capturo el selector y escucho el evento change ,
+    // ingresando al value del target del evento seleccionado
     document.getElementById("selector").addEventListener("change", (e) => {
         let nombreSeleccionado = e.target.value
 
-        // busco el pokemon en el array
+
+        // busco el nombre selecccionado dentro del arreglo listaPokemones mediante un el metodo find
         let encontrado = listaPokemones.find(p => p.name === nombreSeleccionado)
 
+
+        // si fue encontrado entonces ingreso al fetch
+        //y voy cargando las etiquetas con la informacion dentro del objeto
         if(encontrado){
             fetch(encontrado.url)
             .then(res => res.json())
