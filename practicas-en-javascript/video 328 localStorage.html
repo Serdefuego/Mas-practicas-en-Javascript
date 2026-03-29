@@ -28,6 +28,9 @@
 
         limpiar.addEventListener("click",()=>{
             localStorage.clear()
+             // limpiar campos
+            nombre.value = ""
+            ingredientes.value = ""
         })
         guardar.addEventListener("click",()=>{
               localStorage.setItem(nombre.value, ingredientes.value)

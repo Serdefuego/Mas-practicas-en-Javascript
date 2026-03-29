@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>  
+
+    <div>
+         <label for="selector">seleccione el pokemon</label>
+        <select name="pokemon" id="selector"></select>
+    </div>
+    <div id="resultado">
+        <h1 id="nombre"></h1>
+        <div>
+            <img id="imagen">
+        </div>
+        <p id="descripccion"></p>
+    </div>
+    
+  <script>
+    let listaPokemones = [] // ✅ variable global
+
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=10")
+    .then(respuesta => respuesta.json())
+    .then(pokemones => {
+
+        listaPokemones = arreglo(pokemones).results // ✅ guardo el array
+
+        //selecciono la etiqueta selector
+        let selector = document.getElementById("selector")
+        
+        //por cada pokemon dentro del arreglo pokemon
+        listaPokemones.forEach(objeto => {
+            let opccion = document.createElement("option")
+            opccion.value = objeto.name
+            opccion.textContent = objeto.name
+            selector.appendChild(opccion)
+        });
+    })
+
+    //esta funcion retorna el arreglo de pokemones
+    function arreglo(pokemones){
+        return pokemones
+    }
+
+    // 🎯 EVENTO CHANGE
+    document.getElementById("selector").addEventListener("change", (e) => {
+        let nombreSeleccionado = e.target.value
+
+        // busco el pokemon en el array
+        let encontrado = listaPokemones.find(p => p.name === nombreSeleccionado)
+
+        if(encontrado){
+            fetch(encontrado.url)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("nombre").textContent = data.name
+                document.getElementById("imagen").src = data.sprites.front_default
+                document.getElementById("descripccion").textContent = 
+                    "Tipo: " + data.types.map(t => t.type.name).join(", ")
+            })
+        }
+    })
+</script>
+</body>
+</html>

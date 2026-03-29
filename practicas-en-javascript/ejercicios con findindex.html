@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      /*   Hacé una función que:
+        reciba un nombre
+        lo elimine del array usando findIndex + splice */
+
+        let nombres = ["Juan", "Ana", "Luis", "Pedro"]
+
+        function elimina(nombre){
+            let valor=nombres.findIndex(elemento=> elemento==nombre)
+            if (valor!=-1){
+
+            /*     Esto es FUNDAMENTAL entenderlo:
+
+                👉 splice(posición, cantidad)
+
+                valor → desde dónde empezar
+                1 → cuántos elementos borrar */
+
+                nombres.splice(valor,1)
+                alert("correctamente eliminado")
+                alert(nombres)
+            }else{
+                alert("no existe ese nombre")
+            }
+        }
+        elimina("Juan")
+
+
+
+    </script>
+</body>
+</html>

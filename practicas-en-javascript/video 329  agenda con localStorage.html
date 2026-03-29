@@ -1,0 +1,177 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>agenda</h1>
+    <div>
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre">
+    </div>
+    <div>
+        <label for="nombre">telefono</label>
+        <input type="text" id="telefono">
+    </div>
+    <div>
+        <label for="edad">edad</label>
+        <input type="text" id="edad">
+    </div>
+    <div>
+        <ul id="lista"></ul>
+    </div>
+
+    <input type="button" value="guardar" id="guardar">
+    <input type="button" value="mostrar" id="mostrar">
+    <input type="button" value="editar" id="editar">
+    <input type="button" value="eliminar" id="eliminar">
+
+    <script>
+
+        //arreglo donde se guardaran los objetos
+        let agenda = []
+
+        //-----------------------------------------------------------------------------------
+        //clase persona con su constructor
+
+        class Persona {
+            constructor(nombre, edad, telefono) {
+                this.nombre = nombre
+                this.edad = edad
+                this.telefono = telefono
+            }
+        }
+
+        //------------------------------------------------------------------------------------
+        //escuha evento guardar donde se crea una instancia de persona y se hace el llamado a la
+        //funcion camposCompletos para ver si todos los campos estan completados
+
+        document.getElementById("guardar").addEventListener("click", () => {
+            let edad = document.getElementById("edad").value
+            let nombre = document.getElementById("nombre").value
+            let telefono = document.getElementById("telefono").value
+            let persona = new Persona(nombre, edad, telefono)
+            camposCompletos(persona)
+
+        })
+
+        //----------------------------------------------------------------------------------------
+        //escuha el evento del boton mostrar que cargara el elemento li con los contactos dentro del arreglo 
+        //llama a muestra que lo que hace es recorrer la agenda y cargar elementos li en la lista con los datos del objeto
+
+        document.getElementById("mostrar").addEventListener("click", () => {
+            muestra(agenda)
+        })
+        //------------------------------------------------------------------------------------------------------------------
+        //escuha el evento del boton editar
+
+        document.getElementById("editar").addEventListener("click", () => {
+            editar(agenda)
+        })
+
+        //-------------------------------------------------------------------------------------------------------------------
+        //escucha el evento del boton eliminar
+
+        document.getElementById("eliminar").addEventListener("click",()=>{
+            eliminar(agenda)
+        })
+
+        //-------------------------------------------------------------------------------------------------------------------
+        //funcion que obliga completar los datos para hacer la llamada a la funcion 
+        //funcion duplicado para analizar si ese telefono ya existe en el arreglo
+
+        function camposCompletos(ojetoSinCargar) {
+            if (ojetoSinCargar.nombre == "" || ojetoSinCargar.edad == "" || ojetoSinCargar.telefono == "") {
+                alert("debe completar todos los campos")
+            } else {
+                duplicado(agenda, ojetoSinCargar)
+            }
+        }
+        //-------------------------------------------------------------------------------------
+        //funcion para ver si existen telefonos duplicados en la agenda
+
+        function duplicado(arreglo, usuario) {
+            let existe = false;
+            arreglo.forEach(objeto => {
+
+                if (objeto.telefono == usuario.telefono) {
+                    existe = true;
+                }
+            });
+
+            if (existe) {
+                alert("ese telefono ya esta cargado")
+            } else {
+                arreglo.push(usuario)
+                alert(`${usuario.nombre}, se guardo correctamente`)
+            }
+        }
+
+        //---------------------------------------------------------------------------------------
+        // declaro la funcion agenda que se encarga de recorrer la agenda 
+        //llama a limpiador que limpia el innerhtml de la lista
+        // y cargar elementos li en la lista con los datos del objeto
+
+        function muestra(arreglo) {
+            limpiador()
+            arreglo.forEach(objeto => {
+                let lista = document.getElementById("lista")
+                let li = document.createElement("li")
+                li.textContent = `nombre: ${objeto.nombre}, edad: ${objeto.edad}, telefono: ${objeto.telefono}`
+                lista.appendChild(li)
+            })
+        }
+        //----------------------------------------------------------------------------------------
+        //declaro la funcion limpiador que limpia el innerHtml de la lista
+
+        function limpiador() {
+            let lista = document.getElementById("lista")
+            lista.innerHTML = ""
+        }
+        //----------------------------------------------------------------------------------------
+        //declaro la funcion editar que toma los datos en los input, busca si la agenda contiene algun
+        //objeto que coincida el nombre y luego le asigna al objeno esos valores
+
+        function editar(arreglo, individuo) {
+            let edad = document.getElementById("edad").value
+            let nombre = document.getElementById("nombre").value
+            let telefono = document.getElementById("telefono").value
+
+            let busca = arreglo.find(objeto => objeto.nombre == nombre)
+            if (busca) {
+                busca.edad = edad
+                busca.telefono = telefono
+                alert("contacto actualizado")
+                muestra(arreglo)
+
+            } else {
+                alert("no se encontró el contacto")
+            }
+        }
+        //---------------------------------------------------------------------------------------
+        //declaro la funcion eliminar
+         function eliminar(arreglo){
+            let nombre = document.getElementById("nombre").value
+
+            let indice = arreglo.findIndex(objeto => objeto.nombre == nombre)
+
+            if (indice !== -1) {
+                arreglo.splice(indice, 1)
+                alert("contacto eliminado")
+                muestra(arreglo)
+            } else {
+                alert("no se encontró el contacto")
+            }
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>
