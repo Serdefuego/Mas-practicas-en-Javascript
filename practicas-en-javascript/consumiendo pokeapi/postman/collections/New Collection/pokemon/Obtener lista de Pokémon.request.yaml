@@ -1,0 +1,6 @@
+$kind: http-request
+url: https://pokeapi.co/api/v2/pokemon?limit=10
+method: GET
+queryParams:
+  limit: "10"
+order: 4368093624739907

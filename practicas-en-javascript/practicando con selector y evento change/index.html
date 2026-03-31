@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div>
+        <label for="nombres">
+            <select name="nombres" id="selector">
+
+            </select>
+        </label>
+    </div>
+    <div id="detalles">
+
+    </div>
+
+    <script>
+       let arregloDePersonas = [
+        { id: 1, nombre: "Juan", edad: 25, ciudad: "Buenos Aires" },
+        { id: 2, nombre: "María", edad: 30, ciudad: "Córdoba" },
+        { id: 3, nombre: "Lucas", edad: 22, ciudad: "Rosario" },
+        { id: 4, nombre: "Ana", edad: 28, ciudad: "La Plata" },
+        { id: 5, nombre: "Pedro", edad: 35, ciudad: "Mendoza" }
+    ];
+
+    let selector=document.getElementById("selector")
+    
+    //recorro el arreglo y agrego los nombres de cada persona al option
+
+    arregloDePersonas.forEach(persona=>{
+        let opcion=document.createElement("option")
+         opcion.textContent = persona.nombre
+        selector.appendChild(opcion)
+    })
+
+    selector.addEventListener("change",(e)=>{
+        let nombre=e.target.value
+        buscaNombre(arregloDePersonas,nombre)
+    })
+
+    //funcion que rrecorre el arreglo de personas 
+    //y cuando encuentra el nombre devuelve la descripccion
+    function buscaNombre(arreglo,nombre){
+          let detalle=document.getElementById("detalles")
+          detalle.innerHTML=""
+        let encontrado=arreglo.find(persona=>persona.nombre==nombre)
+        if (encontrado){
+            let detalle=document.getElementById("detalles")
+            let p=document.createElement("p")
+            p.textContent=`su nombre es: ${encontrado.nombre}-tiene  ${encontrado.edad} edad y vive en :${encontrado.ciudad}`
+            detalle.appendChild(p)
+        }
+            
+    }
+   
+    </script>
+</body>
+</html>

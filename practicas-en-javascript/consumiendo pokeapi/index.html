@@ -19,7 +19,7 @@
     </div>
     
   <script>
-    let listaPokemones = [] // ✅ variable global
+    let listaPokemones = [] //  variable global
 
     fetch("https://pokeapi.co/api/v2/pokemon?limit=10")
     .then(respuesta => respuesta.json())
@@ -31,7 +31,7 @@
         //selecciono la etiqueta selector y la guardo en la variable selector
         let selector = document.getElementById("selector")
         
-        //recorro el arreglo respues y por cada pokemon dentro del arreglo pokemon
+        //recorro el arreglo  por cada pokemon dentro del arreglo pokemon,CARGO LOS NOMBRES DENTRO DE LA ETIQUETA OPTION
         listaPokemones.forEach(objeto => {
             let opccion = document.createElement("option")
             opccion.value = objeto.name
