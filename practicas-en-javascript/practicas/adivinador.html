@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>adivina el numero</h1>
+    <div>
+        <label for="ingreso">ingrese el numero</label>
+        <input type="text" id="numero">
+    </div>
+    <input type="button" value="confirmar" id="confirmar">
+    <input type="button" value="reiniciar" id="reiniciar">
+    <div>
+        <p id="resultado"></p>
+    </div>
+    <div>
+        <h2 id="intentos"></h2>
+    </div>
+    <script>
+        //declaro un numero random-----------------------------------------------------------------
+        let numeroMagico=Math.floor(Math.random()*10)+1
+        let contadorDeIntentos=0
+        //------------------------------------------------------------------------------------------
+        //funcion que cuenta los intetos
+        function cantDeIntentos(){
+            //
+            if (contadorDeIntentos!=3){
+                    setTimeout(prueba, 2000)
+                    contadorDeIntentos++
+                    document.getElementById("intentos").textContent=`intento numero ${contadorDeIntentos}`
+            }else{
+                document.getElementById("resultado").textContent=`ya no puede jugar mas ${numeroMagico} era el numero`
+                
+            }
+        }
+        //------------------------------------------------------------------------------------------
+       //funcion que comprueba si el numero es correcto
+        function prueba(){
+            let ingreso=parseInt(document.getElementById("numero").value)
+            if(ingreso>numeroMagico){
+                    document.getElementById("resultado").textContent="es mas bajo"
+                }else if(ingreso<numeroMagico){
+                    document.getElementById("resultado").textContent="es mas alto"
+                }else{
+                    document.getElementById("resultado").textContent="ganaste"
+                }
+        }
+        //-----------------------------------------------------------------------------------------
+        //captura el evento del boton confirmar
+        document.getElementById("confirmar").addEventListener("click",()=>{
+            //vacia el contenido del resultado
+            document.getElementById("resultado").textContent=""
+            //llama a la funcion cantidad de intentos
+            cantDeIntentos()
+        
+        })
+        //-----------------------------------------------------------------------------------------
+        document.getElementById("reiniciar").addEventListener("click",()=>{
+            numeroMagico = Math.floor(Math.random() * 10) + 1;
+            contadorDeIntentos = 0;
+
+            document.getElementById("resultado").textContent = "";
+            document.getElementById("intentos").textContent = "";
+            document.getElementById("numero").value = "";
+
+        })
+        
+    </script>
+</body>
+</html>

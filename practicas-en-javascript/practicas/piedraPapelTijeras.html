@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Piedra, Papel o Tijera</h1>
+
+    <button id="piedra">Piedra</button>
+    <button id="papel">Papel</button>
+    <button id="tijera">Tijera</button>
+
+    <p id="resultado"></p>
+    <p id="eleccionCompu"></p>
+
+<script>
+//funcion que devuelve la eleccion de la pc
+function eleccionPc(){
+    let opcciones=["piedra","papel","tijera"] 
+    let aleatorio=Math.floor(Math.random()*3) 
+    let pcEleccion=opcciones[aleatorio]
+
+    document.getElementById("eleccionCompu").textContent = "PC eligió: " + pcEleccion
+
+    return pcEleccion
+}
+//----------------------------------------------------------------------
+//funcion que analaiza quien gana
+function algoritmo(eleccionUsuario,eleccionPc){
+    let resultado=""
+
+    if(eleccionUsuario=="piedra" && eleccionPc=="tijera"){
+        resultado="gana el usuario con piedra"
+    }else if(eleccionUsuario=="piedra" && eleccionPc=="piedra"){
+        resultado="hay empate con piedra"
+    }else if(eleccionUsuario=="papel" && eleccionPc=="piedra"){
+        resultado="gana el usuario con papel"
+    }else if(eleccionUsuario=="papel" && eleccionPc=="tijera"){
+        resultado="gana PC con tijera"
+    }else if(eleccionUsuario=="tijera" && eleccionPc=="tijera"){
+        resultado="hay empate de tijeras"
+    }else if(eleccionUsuario=="tijera" && eleccionPc=="papel"){
+        resultado="gana el usuario con tijera"
+    }else if(eleccionUsuario=="tijera" && eleccionPc=="piedra"){
+        resultado="gana PC con piedra"
+    }
+
+    document.getElementById("resultado").textContent = resultado
+}
+//---------------------------------------------------------------------
+// EVENTOS
+document.getElementById("piedra").addEventListener("click", ()=>{
+    let pc = eleccionPc()
+    algoritmo("piedra", pc)
+})
+
+document.getElementById("papel").addEventListener("click", ()=>{
+    let pc = eleccionPc()
+    algoritmo("papel", pc)
+})
+
+document.getElementById("tijera").addEventListener("click", ()=>{
+    let pc = eleccionPc()
+    algoritmo("tijera", pc)
+})
+
+</script>
+</body>
+</html>

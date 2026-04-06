@@ -24,42 +24,50 @@
     <input type="button" value="guardar" id="guardar">
     <input type="button" value="mostrar" id="mostrar">
 
-    <script>
-        
+<script>
 
-        document.getElementById("guardar").addEventListener("click",()=>{
-            let nombre=document.getElementById("nombre").value
-            let telefono=document.getElementById("telefono").value
-            let edad=document.getElementById("edad").value
+    //capturo el evento guardar
+        document.getElementById("guardar").addEventListener("click", () => {
+            //guardo los input en sus respectivas variables
+            let nombreInput = document.getElementById("nombre")
+            let telefonoInput = document.getElementById("telefono")
+            let edadInput = document.getElementById("edad")
 
-            let persona={
-                    tel:telefono,
-                    ed:edad
-                }
-
-            localStorage.setItem(nombre,JSON.stringify(persona))
-            nombre.value=""
-            telefono.value=""
-            edad.value=""
-            alert("se ha guardado correctamente")
-        })
-
-        document.getElementById("mostrar").addEventListener("click",()=>{
-            let nombre=document.getElementById("nombre").value
-            let telefono=document.getElementById("telefono")
-            let edad=document.getElementById("edad")
-
-            let contenido=JSON.parse(localStorage.getItem(nombre))
-            if(contenido!=null){
-                alert("no se encuentra")
-            }else{
-                 telefono.value=contenido.tel
-                 edad.value=contenido.ed
+            //creo el objeto persona 
+            let persona = {
+                tel: telefonoInput.value,
+                ed: edadInput.value
             }
-            
-           
+
+            //guardo en el local storage con el nombre como clave y el objeto pasado a json con el metodo stringify
+            localStorage.setItem(nombreInput.value, JSON.stringify(persona))
+
+            // pongo en blanco los inputs
+            nombreInput.value = ""
+            telefonoInput.value = ""
+            edadInput.value = ""
+
+            alert("Se ha guardado correctamente")
         })
-     
-    </script>
+
+        //capturo el evento del boton mostrar
+        document.getElementById("mostrar").addEventListener("click", () => {
+            //capturo los inputs
+            let nombre = document.getElementById("nombre").value
+            let telefono = document.getElementById("telefono")
+            let edad = document.getElementById("edad")
+
+            //transformo el contenido del local storaje en un archivo json buscando el nombre
+            let contenido = JSON.parse(localStorage.getItem(nombre))
+
+            //confirmo si el contenido esta vacio o contiene el nombre y muestro los valores en los inputs
+            if (contenido == null) {
+                alert("No se encuentra")
+            } else {
+                telefono.value = contenido.tel
+                edad.value = contenido.ed
+            }
+        })
+</script>
 </body>
 </html>
