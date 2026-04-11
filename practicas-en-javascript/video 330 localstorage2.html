@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //aqui defini un objeto al que voy a guardar en el localStorage
+
+        let objeto={
+            codigo:1,
+            descripccion:"guitarra",
+            precio:6000
+      }
+      //AQUI LO GUARDO EN EL LOCALSTORAGE CON CLAVE "instrumento" y valor el objeto
+      localStorage.setItem("instrumento",JSON.stringify(objeto))
+
+      //AQUI VOY A RECUPERARLO
+      const recuperado=JSON.parse(localStorage.getItem("instrumento"))
+      console.log("aqui se esta recuperando...",recuperado.descripccion)
+    </script>
+</body>
+</html>

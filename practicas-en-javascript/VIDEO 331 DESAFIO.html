@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <label for="ususarios">nombre</label>
+    <input type="text" id="nombres">
+    <input type="button" value="guardar" id="boton">
+
+    <script>
+       
+       let nombre=document.getElementById("nombres")
+        document.getElementById("boton").addEventListener("click",()=>{
+            
+            guardar()
+        })
+
+        function guardar(){
+            localStorage.setItem("usuario",nombre.value)
+            alert("guardado")
+        }
+
+       /* Tenés un formulario que guarda usuarios.
+
+            Condiciones:
+
+            Guardar en localStorage
+            Simular API con promesa
+            Si falla → NO guardar */
+
+
+    </script>
+</body>
+</html>
