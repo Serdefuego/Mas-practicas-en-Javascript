@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <label for="nombre">nombre</label>
+    <input type="text" name="nombre" id="nombre">
+    <label for="apellido">apellido</label>
+    <input type="text" id="apellido">
+    
+    <input type="button" value="guardar" id="guardar">
+    <input type="button" value="mostrar" id="mostrar">
+    
+    <div id="contenedor"></div>
+
+    <script>
+           /*  Tenés un formulario que guarda usuarios.
+        Condiciones:
+        Guardar en localStorage
+        Simular API con promesa
+        Si falla → NO guardar */
+
+        let arregloDeUsuarios=[]
+
+        function guarda(){
+            let nombre=document.getElementById("nombre").value
+            let apellido=document.getElementById("apellido").value
+
+            let objeto={
+                nombre:nombre,
+                apellido:apellido
+            }
+            arregloDeUsuarios.push(objeto)
+            limpiar()
+        }
+        function limpiar(){
+                    document.getElementById("nombre").value=" "
+                    document.getElementById("apellido").value=" "
+                 
+                }
+
+        function muestra() {
+            let contenedor = document.getElementById("contenedor")
+            
+            contenedor.innerHTML = "" // 🔥 clave: limpiás antes
+
+            arregloDeUsuarios.forEach(elemento => {
+                let p = document.createElement("p")
+                p.textContent = `${elemento.nombre} - ${elemento.apellido}`
+                contenedor.appendChild(p)
+            })
+
+        }
+        document.getElementById("guardar").addEventListener("click",guarda)
+        document.getElementById("mostrar").addEventListener("click",muestra)
+
+      
+      
+
+        
+    </script>
+</body>
+</html>

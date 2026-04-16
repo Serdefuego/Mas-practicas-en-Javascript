@@ -14,22 +14,19 @@
        
        let nombre=document.getElementById("nombres")
         document.getElementById("boton").addEventListener("click",()=>{
-            
+            //esto llama a la funcion guardar que guarda en el local storage
             guardar()
         })
 
+        // esta funcion guarda en el local storage el nombre en la clave usuario
         function guardar(){
             localStorage.setItem("usuario",nombre.value)
             alert("guardado")
         }
 
        /* Tenés un formulario que guarda usuarios.
-
-            Condiciones:
-
-            Guardar en localStorage
-            Simular API con promesa
-            Si falla → NO guardar */
+                      Guardar en localStorage
+            */
 
 
     </script>
