@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //creo una base de dato para emular que voy a tomar un dato por medio de una promesa
+        const baseDeDatos=[
+            {id:1,nombre:"romina"},
+            {id:2,nombre:"juan"},
+            {id:3,nombre:"andres"},
+            {id:4,nombre:"claudia"}
+        ]
+
+        //aqui defino la promesa para buscar un id
+
+        const buscarId=(id)=>{
+            //por medio del metodo find busco si el id existe dentro del arreglo
+            
+            const resultado=baseDeDatos.find(elemento=>elemento.id===id)
+
+            //aqui creo la promesa que viene con 2 parametros el resultado y el reject
+            return new Promise((result,reject)=>{
+                //le agrego un temporizador
+                setTimeout(()=>{
+                    if(resultado){
+                        result(resultado)
+                    }else{
+                        reject("no se encuetra la persona con el id")
+                    }
+                })
+            })
+        }
+
+        const app=async()=>{
+            try{
+                const p1= await buscarId(1)
+                console.log(p1)
+                const p2= await buscarId(6)
+                console.log(p2)
+
+            }catch(error){
+                console.log(error)
+            }
+        }
+
+
+        console.log("inicio")
+        app()
+        console.log("fin")
+    </script>
+</body>
+</html>
