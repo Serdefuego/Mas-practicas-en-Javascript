@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="nombre">nombre</label>
+    <input type="text" id="nombre">
+    <input type="button" value="buscar" id="buscar">
+    <p id="resultado"></p>
+
+<script>
+
+        //capturo el nombre
+        let input = document.getElementById("nombre");
+
+        //evento del boton buscar
+        document.getElementById("buscar").addEventListener("click", () => {
+         
+        //guarda el nombre en minuscula dentro de la variable    
+        let nombrePokemon = input.value.toLowerCase();
+        
+        //hace un fetch y concatena en la ultima line del url el nombre del pokemon
+        fetch(`https://pokeapi.co/api/v2/pokemon/${nombrePokemon}`)
+            .then(res => {
+            if (!res.ok) {
+                throw new Error("No existe el Pokémon");
+            }
+            return res.json();
+            })
+            .then(data => {
+            document.getElementById("resultado").textContent = data.description;
+            })
+            .catch(error => {
+            document.getElementById("resultado").textContent = error.message;
+            });
+
+        });
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ <script>
+        fetch("https://pokeapi.co/api/v2/pokemon/pikachu")
+        .then(respuesta => respuesta.json())                //pasa a formato json la respuesta de la api
+        .then(respuesta => console.log(respuesta.name))     //ingresa a la respuesta en formato json y imprime lo que se encuentra en name
+        .catch(error => console.log(error));                //si no encuentra valor en name tira un error
+</script>
+</body>
+</html>
