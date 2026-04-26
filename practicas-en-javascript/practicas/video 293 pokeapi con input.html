@@ -23,15 +23,21 @@
         
         //hace un fetch y concatena en la ultima line del url el nombre del pokemon
         fetch(`https://pokeapi.co/api/v2/pokemon/${nombrePokemon}`)
+
+        //si devuelve dato , retorna la respuesta pasada a json, sino lanza un error
             .then(res => {
             if (!res.ok) {
                 throw new Error("No existe el Pokémon");
             }
             return res.json();
             })
+
+            //si encontro lo que se buscaba captura el elemento p y escribe lo que hay en data.name
             .then(data => {
-            document.getElementById("resultado").textContent = data.description;
+            document.getElementById("resultado").textContent = data.name;
             })
+
+            //en el caso de que haya un error lo que hace es tirar un mensaje de error en el p
             .catch(error => {
             document.getElementById("resultado").textContent = error.message;
             });

@@ -1,0 +1,58 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select name="selector" id="selector"></select>
+    <p id="resultado"></p>
+
+    <script>
+
+         fetch("https://pokeapi.co/api/v2/pokemon/")   //fetch que me trae todos los pokemones
+        .then(respuesta=>respuesta.json())             //respuesta del fetch pasada a formato json
+        .then(data=>mostrar(data))                     //con la respuesta llamamo a la funcion que utiliza el json 
+        .catch(error=>alert("error"))
+        
+        //ESTA FUNCION CARGARA EL ELEMENTO SELECT DE OPTIONS CON VALUE URL Y NOMBRE DEL POKEMON
+        function mostrar(data){
+            let selector = document.getElementById("selector")
+
+            data.results.forEach(element => {
+                let opcion = document.createElement("option")
+                opcion.value = element.url   // usamos la URL directamente para tomar informacion de lo seleccionado
+                opcion.textContent = element.name
+                selector.appendChild(opcion)
+            });
+        }
+
+
+         let selector = document.getElementById("selector").addEventListener("change",(e)=>{
+           
+            let seleccionado=e.target.value  //aqui me permite tomar el url, valor de lo seleccionado
+
+            //AQUI HAGO LA PETICION POR FETCH DE LA URL DENTRO DEL VALUE SELECCIONADO , Y LLAMA A LA FUNCION QUE 
+            //MUESTRA LA INFO DEL POKEMON 
+
+            fetch(seleccionado)
+            .then(respuesta=>respuesta.json())
+            .then(data=>mostrarInfo(data))
+
+         })
+
+         //ESTA FUNCION CARGARA EL ELEMENTO P RESULTADO , CON INFORMACION DEL POKEMON SELECCIONADO
+            function mostrarInfo(data){
+                let p = document.getElementById("resultado")
+
+                p.innerHTML = `
+                Nombre: ${data.name} <br>
+                Altura: ${data.height} <br>
+                Peso: ${data.weight} <br>
+                <img src="${data.sprites.front_default}">
+                `
+            }
+
+    </script>
+</body>
+</html>
