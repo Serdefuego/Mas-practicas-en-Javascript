@@ -1,0 +1,31 @@
+<div id="uno"></div>
+<div id="dos"></div>
+<div id="tres"></div>
+
+<script>
+    function lanzarUno(id) {
+    return new Promise((resolve, reject) => {
+        let num = Math.floor(Math.random() * 100);
+
+        if (num > 50) {
+        document.getElementById(id).textContent = num;
+        resolve(num);
+        } else {
+        document.getElementById(id).textContent = "no es mayor a 50";
+        reject("Falló en " + id);
+        }
+    });
+    }
+
+        Promise.all([
+            lanzarUno("uno"),
+            lanzarUno("dos"),
+            lanzarUno("tres")
+            ])
+        .then(resultados => {
+            alert("Todos exitosos:", resultados);
+        })
+        .catch(error => {
+            alert("Alguno falló:", error);
+    });
+</script>
