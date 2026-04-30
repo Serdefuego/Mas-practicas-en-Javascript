@@ -1,0 +1,30 @@
+<!-- Codificar una función que reciba un número decimal por parámetro,
+ y lo retorne redondeado al entero más cercano. Para ello, 
+ puede emplearse  Math.round.
+Luego invocar la función de forma iterativa cinco (5) veces,
+ solicitando en cada ciclo un número al usuario. 
+ Notas actividad 2
+La “llamada iterativa de la función” implica emplear un bucle.
+ Como se solicita una cantidad determinada, se recomienda emplear for.
+-->
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ </head>
+ <body>
+    <script>
+
+        function  escribir(){
+            let p=document.createElement("p")
+            p.textContent=valor
+            document.body.appendChild(p)
+        }
+         for(i=0;i<5;i++){
+            let valor=Math.round(parseInt(prompt("ingrese un numero decimal")))
+            escribir(valor)
+         }
+    </script>
+ </body>
+ </html>

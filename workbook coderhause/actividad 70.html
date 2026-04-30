@@ -1,0 +1,36 @@
+<!-- Codificar una función con la siguiente cabecera: impuesto (precio, porcentaje).
+ En ella, se retorna un valor numérico compuesto por el precio recibido, 
+ más la suma del porcentaje ingresado.
+Luego invocar la función de forma iterativa cinco (5) veces, 
+solicitando en cada ciclo un precio y porcentaje al usuario.
+
+Notas actividad 3
+Un impuesto es la suma de un monto al precio inicial. 
+Buscamos calcular en la función el porcentaje sobre dicho precio,
+ y sumarlo; por ejemplo: si el precio es 100, el 20% es 20, 
+ entonces el precio final es 100+20 = 120.
+ -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function impuesto(precio,porcentaje){
+            let resultado=(precio*porcentaje)/100
+            return  (resultado)
+        }
+
+        for(i=0;i<2;i++){
+            let numero=parseInt(prompt("ingrese precio"))
+            let porcen=parseInt(prompt("ingrese porcentaje"))
+
+            let resultado=impuesto(numero,porcen)
+            alert(`el resultado es ${resultado}`)
+        }
+    </script>
+</body>
+</html>
