@@ -1,0 +1,40 @@
+<!-- Codificar una función con la siguiente cabecera: validacion(cadena). 
+En ella, se retorna un valor booleano, el cual es true si el parámetro no es un cadena vacía. 
+Caso contrario, se retorna false. Luego invocar la función de forma iterativa, 
+
+Notas actividad 5
+Es común emplear funciones para validar si un valor recibido por parámetro cumple con cierto formato.
+ La comparación de cadena vacía es (cadena != ‘’)
+hasta que el usuario tipee “ESC”, solicitando en cada ciclo una cadena a validar.
+ -->
+
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ </head>
+ <body>
+
+    <input type="text" id="ingreso">
+    <input type="button" value="comprobar" id="boton">
+    <script>
+        document.getElementById("boton").addEventListener("click",()=>{
+            let ingresado=document.getElementById("ingreso").value
+            comprobar(ingresado)
+        })
+     
+        function comprobar(ingresado){
+            if(ingresado.trim()!=""){
+               
+                alert("tiene texto")
+                 return true
+            }else{
+               
+               alert("esta vacio")
+               return false
+            }
+        }
+    </script>
+ </body>
+ </html>
