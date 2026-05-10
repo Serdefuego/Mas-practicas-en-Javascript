@@ -1,0 +1,64 @@
+<!-- Declarar una clase Cliente que permita registrar:
+Registrar nombre, presupuesto, si tiene tarjeta de descuento, y número de teléfono del cliente.
+Un método transferirDinero(valor), que permita  obtener y restar cierta cantidad del presupuesto, 
+siempre que este parámetro sea menor al valor enviado, y mayor que cero.
+Luego invocar al menos tres (3) objetos usando esta clase, y solicitar al usuario cinco (5) números.
+ Informar por alerta si cada uno de los clientes cuenta con el presupuesto suficiente para realizar
+  una transferencia de igual monto al ingresado. -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //creo el constructor con lo que le voy a pasar
+    class Cliente {
+        constructor(nombre, presupuesto, tarjeta, telefono) {
+            this.nombre = nombre;
+            this.presupuesto = presupuesto;
+            this.tarjeta = tarjeta;
+            this.telefono = telefono;
+        }
+
+        //el metodo transferir valor ,que toma valor y hace la resta en el caso de ser posible
+        transferirDinero(valor) {
+            if (valor > 0 && valor <= this.presupuesto) {
+                this.presupuesto -= valor;
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    // Creo un arreglo donde alojar los 3 clientes
+    let clientes = [];
+
+    //pido los datos que recibe el constructor y se los paso al arreglo
+    for (let i = 0; i < 3; i++) {
+        let nombre = prompt("Ingrese nombre:");
+        let presupuesto = parseInt(prompt("Ingrese presupuesto:"));
+        let tarjeta = prompt("¿Tiene tarjeta de descuento? (s/n)");
+        let telefono = prompt("Ingrese teléfono:");
+
+        let cliente = new Cliente(nombre, presupuesto, tarjeta, telefono);
+        clientes.push(cliente);
+    }
+
+    // Pedir 5 montos
+    for (let i = 0; i < 5; i++) {
+        let monto = parseInt(prompt("Ingrese monto a transferir:"));
+
+        for (let cliente of clientes) {
+            if (cliente.transferirDinero(monto)) {
+                alert(cliente.nombre + " puede transferir $" + monto);
+            } else {
+                alert(cliente.nombre + " NO puede transferir $" + monto);
+            }
+        }
+    }
+</script>
+</body>
+</html>

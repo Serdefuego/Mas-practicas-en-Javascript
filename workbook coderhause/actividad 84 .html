@@ -1,0 +1,68 @@
+<!-- 
+    Declarar un método para la clase Tienda con la siguiente cabecera esPropietario(nombre). 
+    Se retorna true si el nombre enviado corresponde al propietario de la tienda.Caso contrario, se retorna false.
+    Luego, invocar al menos tres(3) objetos usando esta clase y solicitar al usuario cinco(5) nombres.
+    Informar por alerta si los nombres pertenecen a algún dueño de tienda.
+ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!-- 
+    Declarar un método para la clase Tienda con la siguiente cabecera esPropietario(nombre). 
+    Se retorna true si el nombre enviado corresponde al propietario de la tienda.Caso contrario, se retorna false.
+    Luego, invocar al menos tres(3) objetos usando esta clase y solicitar al usuario cinco(5) nombres.
+    Informar por alerta si los nombres pertenecen a algún dueño de tienda.
+ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+            class Tienda {
+                constructor(propietario) {
+                    this.propietario = propietario;
+                }
+
+                esPropietario(nombre) {
+                    return this.propietario === nombre;
+                }
+            }
+
+            // Crear 3 tiendas con sus dueños
+            let tienda1 = new Tienda("marcos");
+            let tienda2 = new Tienda("juan");
+            let tienda3 = new Tienda("ana");
+
+            let tiendas = [tienda1, tienda2, tienda3];
+
+            // Pedir 5 nombres
+            for (let i = 0; i < 5; i++) {
+                let nombreIngresado = prompt("Ingrese un nombre:");
+                let esDueno = false;
+
+                // Verificar si coincide con algún dueño
+                for (let tienda of tiendas) {
+                    if (tienda.esPropietario(nombreIngresado)) {
+                        esDueno = true;
+                        break;
+                    }
+                }
+
+                if (esDueno) {
+                    alert(nombreIngresado + " es dueño de una tienda");
+                } else {
+                    alert(nombreIngresado + " NO es dueño de una tienda");
+                }
+            }
+</script>
+</body>
+</html>
+</body>
+</html>

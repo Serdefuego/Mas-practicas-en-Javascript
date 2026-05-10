@@ -1,0 +1,57 @@
+<!-- Declarar un método para la clase Tienda con la siguiente cabecera estaAbierto(hora).
+  Este retorna true si la hora enviada está entre las 08 y 12, o entre las 15 y 19. Caso contrario, se retorna false.
+Luego invocar al menos un (1) objeto usando esta clase, y solicitar al usuario tres (3) horas. 
+Informar por alerta si la tienda está abierta, en función de la hora ingresada.
+
+Notas actividad 3
+Considerando que por prompt sólo podemos ingresar cadenas, se sugiere asumir que se trabaja sólo con horas en punto,
+ de 0 a 22. El if debe verificar dos intervalos válidos
+ -->
+
+
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ </head>
+ <body>
+    <script>
+
+        class Tienda {
+            constructor(nombre) {
+                this.nombre = nombre;
+            }
+
+            imprimir() {
+                let p = document.createElement("p");
+                p.textContent = `Tienda: ${this.nombre}`;
+                document.body.appendChild(p);
+            }
+
+            estaAbierto(hora) {
+                if ((hora >= 8 && hora <= 12) || (hora >= 15 && hora <= 19)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        // Crear objeto
+        let tienda1 = new Tienda("PANADERIA");
+        tienda1.imprimir();
+
+        // Pedir 3 horas al usuario
+        for (let i = 1; i <= 3; i++) {
+            let hora = parseInt(prompt("Ingrese una hora (0 a 22)"));
+
+            if (tienda1.estaAbierto(hora)) {
+                alert("A las " + hora + " está ABIERTO");
+            } else {
+                alert("A las " + hora + " está CERRADO");
+            }
+        }
+    </script>
+ </body>
+ </html>

@@ -1,0 +1,103 @@
+<!-- Declarar una clase Jugador que permita registrar nombre, número de camiseta, edad,
+ y si está lesionado. Luego instanciar al menos cinco (5) objetos usando esta clase, y asociarlos a un array.
+ 
+Notas actividad 3
+
+El método push puede recibir un objeto por parámetro, el cual se asociará al array empleado.
+ Es posible agregar más propiedades a la clase jugador.
+
+ -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div>
+            <label for="nombre">nombre</label>
+            <input type="text" id="nombre">
+        </div>
+        <div>
+            <label for="numero de camiseta">numero de camiseta</label>
+            <input type="number" id="camiseta">            
+        </div>
+        <div>
+            <label for="edad">edad</label>
+            <input type="number" id="edad">
+        </div>
+        <div>
+            <label for="lesion">esta lecionado</label>
+            <input type="checkbox" name="lesionado" id="lesion">            
+        </div>
+    </div>
+
+    <input type="button" value="cargar" id="boton">
+    <input type="button" value="mostrar" id="mostrar">
+    <div>
+        <h1>jugadores</h1>
+        <div id="contenedor">
+
+        </div>
+    </div>
+    
+    <script>
+
+        class Jugador {
+            constructor(nombre,camiseta,edad,lesion) {
+                this.nombre=nombre,
+                this.camiseta=camiseta,
+                this.edad=edad,
+                this.lesion=lesion
+            }
+        }
+
+        let arregloJugadores=[]
+
+        function limpiar(){
+            document.getElementById("nombre").value=""
+            document.getElementById("camiseta").value=""
+            document.getElementById("edad").value=""
+            document.getElementById("lesion").value=""
+        }
+
+        function vaciarContenedor(){
+            let contenedor=document.getElementById("contenedor")
+            contenedor.innerHTML=""
+        }
+
+        function cargaJugadores(){
+            let contenedor=document.getElementById("contenedor")
+            for(jugon of arregloJugadores){
+                let p=document.createElement("p")
+                p.textContent=`jugador ${jugon.nombre},edad ${jugon.edad}`
+                contenedor.appendChild(p)
+            }
+        }
+        
+        
+        document.getElementById("boton").addEventListener("click",()=>{
+            let nombre=document.getElementById("nombre").value
+            let camiseta=document.getElementById("camiseta").value
+            let edad=document.getElementById("edad").value
+            let lesion=document.getElementById("lesion").checked
+            let nuevo=new Jugador(nombre,camiseta,edad,lesion)
+            
+            arregloJugadores.push(nuevo)
+            limpiar()
+
+        })
+
+        document.getElementById("mostrar").addEventListener("click",()=>{
+            vaciarContenedor()
+            cargaJugadores()
+
+        })
+        
+
+        
+    </script>
+</body>
+</html>

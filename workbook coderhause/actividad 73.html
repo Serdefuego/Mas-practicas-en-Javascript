@@ -1,0 +1,49 @@
+<!-- Declarar un clase Tienda que permita registrar:
+Nombre de la tienda.
+Dirección de la tienda.
+Propietario de la tienda.
+Rubro de la tienda.
+Luego invocar al menos tres (3) objetos usando esta clase.
+Notas actividad 1
+Por cada dato a registrar en un objeto, corresponde una propiedad. 
+Recordemos que la invocación del objeto es instanciarlo usando new y el constructor. -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Tienda{
+            constructor(){
+                 this.nombre=prompt("ingrese nombre de la tienda");
+                 this.direccion = prompt("Ingrese dirección de la tienda");
+                 this.propietario = prompt("Ingrese nombre del propietario");
+                 this.rubro = prompt("Ingrese rubro de la tienda");
+            }
+            imprimir(){
+                     document.write(
+                        "Nombre: " + this.nombre + "<br>" +
+                        "Dirección: " + this.direccion + "<br>" +
+                        "Propietario: " + this.propietario + "<br>" +
+                        "Rubro: " + this.rubro + "<br><br>"
+                    );
+            }
+        }
+            // Crear 3 objetos
+            let tienda1 = new Tienda();
+            let tienda2 = new Tienda();
+            let tienda3 = new Tienda();
+
+            // Mostrar datos
+            tienda1.imprimir();
+            tienda2.imprimir();
+            tienda3.imprimir();
+
+  
+    </script>
+
+</body>
+</html>

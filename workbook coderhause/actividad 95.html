@@ -1,0 +1,51 @@
+<!-- Declarar un array vacío, y cargarlo de forma dinámica solicitando al usuario nombres de forma consecutiva,
+ hasta que se ingrese “ESC”. Luego recorrer el array, e informar por alerta el nombre de cada jugador, 
+ así como la posición  que ocupa en la colección.
+ 
+ Notas actividad 2
+Usando while  y prompt podemos cargar una colección de forma dinámica.
+ Es decir, agregar al array en cada iteración la entrada capturada, usando el método push
+-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+        <input type="text" id="nombre">
+        <input type="button" value="cargar" id="boton">
+        <div id="contenedor">
+
+        </div>
+    <script>
+        let arreglo=[]
+            document.getElementById("boton").addEventListener("click",()=>{
+                let nombre=document.getElementById("nombre").value
+                if (nombre.trim() != ""){
+                    arreglo.push(nombre)
+                     agregar(arreglo)
+                     document.getElementById("nombre").value=""
+                }else{
+                    alert("no ingresaste ningun dato,intentalo nuevamamente")
+                }
+               
+            })
+        
+            function agregar(vector){
+                let contenedor=document.getElementById("contenedor")
+                contenedor.innerHTML=""
+                for (nombres of vector){
+                    let p=document.createElement("p")
+                    p.textContent=nombres
+                    contenedor.appendChild(p)
+
+                }
+            }
+           
+
+    </script>
+</body>
+</html>
