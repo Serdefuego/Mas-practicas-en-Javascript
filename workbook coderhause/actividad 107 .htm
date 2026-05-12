@@ -1,0 +1,54 @@
+<!-- Si no existe un valor con la clave “nombre” en el localStorage,
+ solicitar un nombre al usuario, y almacenarlo con dicha clave. 
+ Si existe, mostrar el nombre obtenido desde el storage con una alerta.
+Notas actividad 1
+Con localStorage almacenamos datos que pueden ser útiles en el próximo uso de la aplicación.
+ Recordemos que al refrescar la página, el script se vuelve a interpretar.
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage</title>
+</head>
+<body>
+
+    <h1>localStorage</h1>
+
+    <div>
+        <label for="clave">clave</label>
+        <input type="text" id="clave">
+    </div>
+
+    <div>
+        <label for="nombre">nombre</label>
+        <input type="text" id="nombre">
+    </div>
+
+    <input type="button" value="mostrar" id="mostrar">
+
+    <script>
+
+        document.getElementById("mostrar").addEventListener("click",()=>{
+
+            let clave = document.getElementById("clave").value
+            let nombre = document.getElementById("nombre").value
+            //aqui consulto mediante el metodo getItem del localStorage si existe esa clave
+            if(localStorage.getItem(clave)){
+
+                alert("Ya existe: " + localStorage.getItem(clave))
+
+            }else{
+                //si no existe ,mediante el metodo setItem le agrego a la clave el nombre
+                localStorage.setItem(clave,nombre)
+                alert("Guardado correctamente")
+
+            }
+
+        })
+
+    </script>
+
+</body>
+</html>

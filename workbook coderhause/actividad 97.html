@@ -1,0 +1,53 @@
+<!-- Codificar una función con la siguiente cabecera: buscarJugador(equipo, jugador).
+  En ella, se recibe por parámetro un array de jugadores (objetos instanciados empleando la clase de la actividad 3),
+   y el nombre de un jugador. La función retorna el jugador que coincide con el nombre.
+Realizar al menos tres (3) búsquedas solicitando el nombre al usuario, e informar sobre el resultado de cada búsqueda.
+
+Notas actividad 4
+El método find permite encontrar un elemento en el array. Como estamos trabajando con array de objetos, 
+usamos la notación punto para verificar el valor de las propiedades.
+
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arregloDeJugadores=[]
+
+            for(i=0;i<3;i++){
+                let nombre=prompt("ingrese nombre")
+                let equipo=prompt("ingrese equipo")
+                agregarJugador(nombre,equipo)
+            }
+
+           function agregarJugador(nombre,equipo){
+                let jugon={
+                    nombre:nombre,
+                    equipo:equipo
+                }
+                arregloDeJugadores.push(jugon)
+            }
+        
+      
+
+        function buscarJugador(nombre,equipo){
+
+          let persona=arregloDeJugadores.find(persona=>persona.nombre==nombre)
+          let grupo=arregloDeJugadores.find(persona=>persona.equipo==equipo)
+          if(persona && grupo){
+            alert("se encuentra "+persona.nombre)
+          }else{
+            alert("no se encuentra")
+          }
+        }
+
+
+        buscarJugador("a","1")
+        alert("chau")
+    </script>
+</body>
+</html>

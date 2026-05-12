@@ -1,0 +1,31 @@
+<!-- Si no existe un valor con la clave “comidas” en el localStorage, 
+crear un array vacío y cargarlo de forma dinámica, 
+solicitando al usuario nombres de comida de forma consecutiva,
+hasta cinco (5) veces. Luego almacenarlo con dicha clave.
+Si existe, recorrer el array, e informar por alerta el menú cargado.
+Notas actividad 2
+Al almacenar un array en storage con setItem, se guarda como cadena. 
+Por ende, es necesario usar split(“,”) al hacer getItem, 
+para obtener lo almacenado en formato  array. -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+    <script>
+        let arreglo=[]
+        if(!localStorage.getItem("comidas")){
+             
+            for(i=0;i<3;i++){
+                let nombre=prompt("ingrese nombre")
+                arreglo.push(nombre)
+            }
+            localStorage.setItem(arreglo.split(","))
+        }
+    </script>
+</body>
+</html>
