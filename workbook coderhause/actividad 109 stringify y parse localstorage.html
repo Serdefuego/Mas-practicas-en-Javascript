@@ -1,0 +1,60 @@
+<!-- Declarar una clase Hamburguesa que permita registrar nombre de la hamburguesa,
+el precio, los ingredientes, y el número de combo.
+Luego instanciar al menos cinco (5) objetos usando esta clase, asociarlos a un array,
+y almacenarlos con la clave ‘hamburguesas’ en el localStorage.
+Para almacenar un array de objeto en el storage, es necesario emplear el método stringify.
+La propiedad “ingredientes” puede ser un array de ingredientes.
+ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Hamburguesa {
+            constructor(precio,ingrediente,numero) {
+                this.precio=precio,
+                this.ingrediente=ingrediente,
+                this.numero=numero
+            }
+            imprimir(){
+                alert(`el precio es de ${this.precio} contiene ${this.ingrediente} y el el combo ${this.numero}`)
+            }
+        }
+
+        //funcion que carga el arreglo con las  haburguesas
+        function cargar(){
+            let precio=parseFloat("ingrese precio")
+            let ingrediente=prompt("ingrese ingrediente")
+            let numero=parseInt(prompt("ingrese numero de combo"))
+
+            let nueva=new Hamburguesa(precio,ingrediente,numero)
+            arreglo.push(nueva)
+        }
+
+        //arreglo que aloja las hamburgesas
+        let arreglo=[]
+        //se llama a la funcion 5 veces 
+        for (i=0;i<3;i++){
+            cargar()
+        }
+
+        //funcion queguarda las hamburgesas el local storage
+        function guardaStorage(){
+            localStorage.setItem("haburguesas",arreglo)
+        }
+
+        //funcion que recupera lo que se guardo en el localStorage
+
+        function recuperaStorage(){
+             let comidas=localStorage.getItem(Hamburguesa).split(",")
+             for(papa of comidas){
+                alert(papa)
+             }
+       
+        }
+    </script>
+</body>
+</html>

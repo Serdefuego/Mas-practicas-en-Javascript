@@ -7,25 +7,46 @@ Notas actividad 2
 Al almacenar un array en storage con setItem, se guarda como cadena. 
 Por ende, es necesario usar split(“,”) al hacer getItem, 
 para obtener lo almacenado en formato  array. -->
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>localStorage</title>
 </head>
 <body>
-   
+
     <script>
-        let arreglo=[]
+
         if(!localStorage.getItem("comidas")){
-             
-            for(i=0;i<3;i++){
-                let nombre=prompt("ingrese nombre")
-                arreglo.push(nombre)
+
+            let arreglo = []
+
+            for(let i = 0; i < 5; i++){
+
+                let comida = prompt("Ingrese una comida")
+
+                arreglo.push(comida)
+
             }
-            localStorage.setItem(arreglo.split(","))
+
+            localStorage.setItem("comidas", arreglo)
+
+            alert("Comidas guardadas")
+
+        }else{
+
+            let comidasGuardadas = localStorage.getItem("comidas").split(",")
+
+            for(let comida of comidasGuardadas){
+
+                alert(comida)
+
+            }
+
         }
+
     </script>
+
 </body>
 </html>
