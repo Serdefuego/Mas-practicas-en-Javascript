@@ -1,0 +1,40 @@
+<!-- Obtener desde el localStorage el array de objetos almacenado durante la actividad 3, 
+con la clave ‘hamburguesas’. Recorrer el array , aumentando en un 30% el precio de cada producto. 
+Por último, volver a almacenar el array modificado en el localStorage con la misma clave. -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //creo un arreglo con productos y luego lo guardo en el localStorage
+        let productos=[
+            {nombre:"mouse",precio:200},{nombre:"teclado",precio:300}
+        ]
+
+        localStorage.setItem("inventario",JSON.stringify(productos)) 
+
+  
+
+       // recupero el inventario del localStorage  y a cada producto le sumo un 10%
+
+        let captura = JSON.parse(localStorage.getItem("inventario"))
+
+
+        // aumento un 10%
+
+        for(let items of captura){
+            items.precio += (items.precio * 10) / 100
+        }
+
+
+        // guardo el nuevo inventario
+
+        localStorage.setItem("inventario", JSON.stringify(captura))
+    </script>
+</body>
+</html>

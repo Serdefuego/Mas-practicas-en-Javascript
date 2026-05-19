@@ -1,0 +1,30 @@
+<!-- Declarar un array de países, y crear una etiqueta select.
+ Por cada país, concatenar una etiqueta option a una template de caracteres, 
+ asignando el resultado al interior de la etiqueta padre. 
+ El value de cada opción es la posición de la ciudad en la colección. 
+ Por último, agregar el select al body. -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         let arreglo=["argentina","peru","eeuu","chile","ecuador"]
+         let etiquetaSelect=document.createElement("select")
+         
+         document.body.appendChild(etiquetaSelect)
+         for(pais of arreglo){
+            let etiquetaOption=document.createElement("option")
+            etiquetaOption.value=pais
+            etiquetaOption.textContent=pais
+            etiquetaSelect.appendChild(etiquetaOption)
+         }
+    </script>
+   
+
+
+</body>
+</html>

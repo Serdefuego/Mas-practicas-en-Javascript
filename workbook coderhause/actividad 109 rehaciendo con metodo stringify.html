@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arreglo=[]
+
+        //ciclo or que carga 3 objetos dentro de un arreglo
+        for(i=0;i<2;i++){
+
+            let nombre=prompt("ingrese nombre")
+            let edad=parseInt(prompt("ingrese edad"))
+
+            class Persona {
+                constructor(nombre,edad) {
+                    this.nombre=nombre,
+                    this.edad=edad
+                }
+            }
+
+            let ser=new Persona(nombre,edad)
+            arreglo.push(ser)
+        }
+
+        //aqui estoy guardando el arreglo convertido en un objeto JSON mediante el metodo stringify
+        localStorage.setItem("grupo",JSON.stringify(arreglo))
+
+        //aqui recupero el objeto json del local storage mediante el metodo pase del objeto json
+        let recuperado=JSON.parse(localStorage.getItem("grupo"))
+     
+        for(personas of recuperado){
+            alert(personas.nombre)
+        }
+
+        let opccion=prompt("desea eliminar s/n")
+
+        if(opccion.toLowerCase()!="s"){
+            alert("no se borraron los registros")
+        }else{
+            localStorage.removeItem("grupo")
+            alert("se borraron los registros")
+        }
+            
+        
+        
+
+    </script>
+</body>
+</html>

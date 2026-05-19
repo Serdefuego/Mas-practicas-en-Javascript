@@ -1,0 +1,25 @@
+<!-- Declarar un array con nombres de ciudades y recorrerlo. 
+Por cada ciudad, crear una etiqueta h2 que contenga el nombre, y agregarla al body.
+Notas actividad 1
+Se recomienda recorrer el array con for...of. 
+En cada repetición se crea un elemento con createElement,
+ se modifica su innerHTML, y se lo agrega con append.
+ -->
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ </head>
+ <body>
+    <script>
+        let arreglo=["san clemente","las toninas","mar de ajo","pinamar"]
+
+        for(localidades of arreglo){
+            let p=document.createElement("p")
+            p.textContent=localidades
+            document.body.appendChild(p)
+        }
+    </script>
+ </body>
+ </html>

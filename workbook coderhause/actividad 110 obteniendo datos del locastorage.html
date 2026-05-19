@@ -1,0 +1,164 @@
+<!-- Obtener desde el localStorage 
+el array de objetos almacenado durante la actividad 3,
+con la clave ‘hamburguesas’.
+Recorrer el array generando un listado con el detalle de cada hamburguesa,
+asociando un número de selección en función de la posición.
+Por último, capturar una entrada con la selección del usuario, confirmando la información
+del producto escogido. -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+  <script>
+
+    let arreglo=[]
+
+    class Hamburguesa{
+        constructor(ingrediente,precio,combo){
+            this.combo=combo
+            this.ingrediente=ingrediente
+            this.precio=precio
+        }
+    }
+
+    function menu(){
+
+        let opcion = parseInt(
+            prompt(
+                "1 cocinar\n2 mostrar\n3 eliminar\n4 llevar\n5 salir"
+            )
+        )
+
+        return opcion
+    }
+
+    function cocinar(){
+
+        let combo=parseInt(prompt("Ingrese numero de combo")
+)
+        let ingrediente = prompt("Ingrese ingrediente")
+
+        let precio = parseFloat(
+            prompt("Ingrese precio")
+        )
+
+        let pedido = new Hamburguesa(
+            ingrediente,
+            precio,combo
+        )
+
+        arreglo.push(pedido)
+
+        localStorage.setItem(
+            "pedidos",
+            JSON.stringify(arreglo)
+        )
+
+    }
+
+    function mostrar(){
+
+        let guardado = localStorage.getItem("pedidos")
+
+        if(guardado){
+
+            let anterior = JSON.parse(guardado)
+
+            for(let items of anterior){
+
+               alert(
+                    items.ingrediente,
+                    items.precio
+                )
+
+            }
+
+        }else{
+
+          alert("No hay pedidos")
+
+        }
+
+    }
+
+    function eliminar(){
+
+        let guardado = localStorage.getItem("pedidos")
+
+        if(guardado){
+
+            localStorage.removeItem("pedidos")
+
+            alert("Se eliminó correctamente")
+
+        }else{
+
+            alert("No hay pedidos")
+
+        }
+
+    }
+
+    function llevar(){
+        let nombre=parseInt(prompt("ingrese combo"))
+        let capturoPedidos=JSON.parse(localStorage.getItem("pedidos"))
+        for(items of capturoPedidos){
+            if(items.combo==nombre){
+                alert(`se puede llevar su ${items.ingrediente}`)
+                break
+            }else{
+               alert("no se encuentra ese combo en la lista de pedidos")
+            }
+        }
+    }
+
+    function salir(){
+
+        alert("Gracias por cocinar")
+
+    }
+
+
+    let opcion = menu()
+
+    while(opcion != 5){
+
+        switch(opcion){
+
+            case 1:
+                cocinar()
+                break
+
+            case 2:
+                mostrar()
+                break
+
+            case 3:
+                eliminar()
+                break
+            case 4:
+                llevar()
+                break
+
+            case 5:
+                salir()
+                break
+
+            default:
+                alert("Opción inválida")
+                break
+        }
+
+        opcion = menu()
+    }
+
+    salir()
+
+</script>
+</body>
+</html>
