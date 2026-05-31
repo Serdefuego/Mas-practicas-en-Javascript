@@ -9,7 +9,16 @@ cuya estructura interna detalle la información del objeto, agregando cada conte
     <title>Document</title>
 </head>
 <body>
+    <style>
+        .persona{
+            background-color: aquamarine;
+            text-align: center;
+            
+
+        }
+    </style>
     <script>
+        let id=0
         let arreglo=[]
         class Cantante {
             constructor(nombre,registro) {
@@ -18,6 +27,7 @@ cuya estructura interna detalle la información del objeto, agregando cada conte
             }
         }
         function crear(){
+                let identificador=id
                 let nombre=prompt("ingrese nombre del cantante")
                 let registro=prompt("ingrese registro")
                 let integrante=new Cantante(nombre,registro)
@@ -25,17 +35,26 @@ cuya estructura interna detalle la información del objeto, agregando cada conte
                 let div=document.createElement("div")
                 let nom=document.createElement("p")
                 let reg=document.createElement("p")
+                let idp=document.createElement("p")
                 nom.textContent=nombre
                 reg.textContent=registro
-                div.appendChild(nom,reg)
-                
+                idp.textContent=identificador
+                div.className = "persona"
+                div.appendChild(idp)
+                div.appendChild(nom)
+                div.appendChild(reg)
+
                 document.body.appendChild(div)
+                id++
+
         }
 
-        for(i=0;i<3;i++){
+        for(i=0;i<=3;i++){
             crear()
 
         }
+
+       
     </script>
     
 </body>

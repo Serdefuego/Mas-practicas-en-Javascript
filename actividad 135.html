@@ -1,0 +1,96 @@
+<!-- Crear un formulario que permita ingresar la información de un estudiante.
+Luego, escuchar el evento submit sobre el form, capturando las entradas, 
+e invocar un objeto Estudiante usando los valores ingresados,
+ y asociar la instancia a un array de estudiantes.
+Por último, disparar una salida en el HTML, a modo de confirmación de los datos registrados. -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="submit">
+        <label for="nombre">ingrese nombre</label>
+        <input type="text" id="nombre">
+        <label for="edad">edad</label>
+        <input type="text" id="edad">
+    </form>
+    <input type="button" value="cargar" id="cargar">
+    <input type="button" value="mostrar" id="mostrar">
+    <div id="contenedor">
+    </div>
+    <div id="detalle"></div>
+    <script>
+        let estudiantes=[]
+        
+
+        document.getElementById("cargar").addEventListener("click",()=>{
+            
+            let nombre=document.getElementById("nombre").value
+           let edad = Number(document.getElementById("edad").value)
+
+            let alumno={
+                nombre:nombre,
+                edad:edad
+            }
+            estudiantes.push(alumno)
+
+            document.getElementById("nombre").value=""
+            document.getElementById("edad").value=""
+        })
+
+       document.getElementById("mostrar").addEventListener("click",()=>{
+
+    let contenedor = document.getElementById("contenedor")
+    contenedor.innerHTML = ""
+
+    estudiantes.forEach(element => {
+
+        let divi = document.createElement("div")
+        let pnombre = document.createElement("p")
+        let pedad = document.createElement("p")
+
+        pnombre.textContent = element.nombre
+        pedad.textContent = element.edad
+
+        divi.appendChild(pnombre)
+        divi.appendChild(pedad)
+
+        let boton = document.createElement("button")
+        boton.textContent = "Seleccionar"
+
+        divi.appendChild(boton)
+
+        contenedor.appendChild(divi)
+
+    })
+
+})
+
+boton.addEventListener("click",()=>{
+
+    let detalle = document.getElementById("detalle")
+
+    detalle.innerHTML = ""
+
+    let seleccionado = document.createElement("div")
+
+    let pnombreSel = document.createElement("p")
+    let pedadSel = document.createElement("p")
+
+    pnombreSel.textContent = "Nombre: " + element.nombre
+    pedadSel.textContent = "Edad: " + element.edad
+
+    seleccionado.appendChild(pnombreSel)
+    seleccionado.appendChild(pedadSel)
+
+    detalle.appendChild(seleccionado)
+
+})
+
+       
+    </script>
+</body>
+</html>

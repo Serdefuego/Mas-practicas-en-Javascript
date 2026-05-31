@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>selector</h1>
+    <select name="materias" id="selector"></select>
+    <input type="button" value="mostrar" id="mostrar">
+    <div id="contenedor"></div>
+
+    <script>
+     let materias = [
+    {
+        id: 1,
+        nombre: "Matemática",
+        profesor: "García",
+        horasSemanales: 5
+    },
+    {
+        id: 2,
+        nombre: "Lengua",
+        profesor: "Pérez",
+        horasSemanales: 4
+    },
+    {
+        id: 3,
+        nombre: "Historia",
+        profesor: "Rodríguez",
+        horasSemanales: 3
+    },
+    {
+        id: 4,
+        nombre: "Geografía",
+        profesor: "López",
+        horasSemanales: 2
+    }
+];
+
+    function cargaSelect(arreglo){
+        arreglo.forEach(element => {
+            let option=document.createElement("option")
+            option.value=element.nombre
+            option.textContent=element.nombre
+            let select=document.getElementById("selector")
+            select.appendChild(option)
+        });
+    }
+
+    cargaSelect(materias)
+    document.getElementById("mostrar").addEventListener("click",()=>{
+        let valor=document.getElementById("selector").value
+        let divi=document.createElement("div")
+         
+        let pmateria=document.createElement("p")
+        let pprofesor=document.createElement("p")
+        pmateria.textContent=valor
+        let busca = materias.find(item => item.nombre === valor)
+        pprofesor.textContent=busca.profesor
+        divi.appendChild(pmateria)
+        divi.appendChild(pprofesor)
+       document.getElementById("contenedor").innerHTML=""
+        document.getElementById("contenedor").appendChild(divi)
+    })    
+
+    </script>
+</body>
+</html>
