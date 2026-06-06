@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const productos = [
+            { imagen: "🍌", nombre: "Bananas", precio: 220 },
+            { imagen: "🍎", nombre: "Manzanas", precio: 200 },
+            { imagen: "🥝", nombre: "Kiwis", precio: 280 },
+            { imagen: "🍈", nombre: "Melón", precio: 350 },
+            { imagen: "🍍", nombre: "Piñas", precio: 320 },
+            { imagen: "🍅", nombre: "Tomates", precio: 140 },
+            { imagen: "🥥", nombre: "Cocos", precio: 270 },
+            { imagen: "🍉", nombre: "Sandias", precio: 200 },
+            { imagen: "🍑", nombre: "Duraznos", precio: 310 },
+            { imagen: "🫐", nombre: "Arandanos", precio: 650 },
+            { imagen: "🥭", nombre: "Mango", precio: 290 },
+            { imagen: "🍇", nombre: "Uvas", precio: 700 },
+            { imagen: "🍐", nombre: "Peras", precio: 320 },
+            { imagen: "🍒", nombre: "Cerezas", precio: 1100 },
+            { imagen: "🍓", nombre: "Frutillas", precio: 600 },
+            { imagen: "🍋", nombre: "Limones", precio: 260 }
+        ];
+
+        //******creo un div donde meter las card******************************************
+        let contenedor=document.createElement("div")
+        contenedor.className="conteiner"
+        contenedor.id="conteiner"
+        document.body.appendChild(contenedor)
+        //********************************************************************************
+        
+        let compra=[]
+        function comprar(valor){
+            compra.push(valor)
+            let comprado=localStorage.setItem("comprado",JSON.stringify(compra))
+        }
+        //********************************************************************************
+        //por cada fruta dentro del arreglo creo una card y la meto en el contenedor
+        productos.forEach(item=>{
+            let div=document.createElement("div")
+            let h1=document.createElement("h1")
+            let p=document.createElement("p")
+            let pimg=document.createElement("p")
+            let boton=document.createElement("button")
+            boton.textContent="comprar"
+            boton.addEventListener("click",() => comprar(item))
+            pimg.textContent=item.imagen
+            h1.textContent=item.nombre
+            p.textContent=item.precio
+            div.appendChild(pimg)
+            div.appendChild(h1)
+            div.appendChild(p)
+            div.appendChild(boton)
+            contenedor.appendChild(div)
+        
+        })
+        
+        //*********************************************************************************
+        let lista=localStorage.setItem("lista",JSON.stringify(productos))
+
+
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <select name="personajes" id="personajes"></select>
+    <input type="button" value="imprimir" id="imprimir">
+    <input type="button" value="quitar" id="quitar">
+    <div id="contenedor"></div>
+    <script>    
+    let personajes = [
+    {
+        nombre: "Goku",
+        poder: "Kamehameha",
+        descripcion: "Saiyajin criado en la Tierra y defensor del planeta."
+    },
+    {
+        nombre: "Vegeta",
+        poder: "Final Flash",
+        descripcion: "Príncipe de los Saiyajin y eterno rival de Goku."
+    },
+    {
+        nombre: "Piccolo",
+        poder: "Makankosappo",
+        descripcion: "Guerrero namekiano y maestro de Gohan."
+    },
+    {
+        nombre: "Gohan",
+        poder: "Masenko",
+        descripcion: "Hijo de Goku con un enorme potencial oculto."
+    },
+    {
+        nombre: "Trunks",
+        poder: "Burning Attack",
+        descripcion: "Hijo de Vegeta y Bulma, viajero del futuro."
+    },
+    {
+        nombre: "Goten",
+        poder: "Kamehameha",
+        descripcion: "Hijo menor de Goku, alegre y talentoso."
+    },
+    {
+        nombre: "Krilin",
+        poder: "Kienzan",
+        descripcion: "Mejor amigo de Goku y gran artista marcial."
+    },
+    {
+        nombre: "Ten Shin Han",
+        poder: "Kikoho",
+        descripcion: "Guerrero disciplinado de tres ojos."
+    },
+    {
+        nombre: "Yamcha",
+        poder: "Sokidan",
+        descripcion: "Antiguo bandido convertido en luchador."
+    },
+    {
+        nombre: "Freezer",
+        poder: "Supernova",
+        descripcion: "Tirano galáctico responsable de la destrucción del planeta Vegeta."
+    },
+    {
+        nombre: "Cell",
+        poder: "Kamehameha Perfecto",
+        descripcion: "Bioandroide creado con células de los mejores guerreros."
+    },
+    {
+        nombre: "Majin Buu",
+        poder: "Rayo de Chocolate",
+        descripcion: "Ser mágico con gran poder destructivo."
+    },
+    {
+        nombre: "Bills",
+        poder: "Esfera de Destrucción",
+        descripcion: "Dios de la Destrucción del Universo 7."
+    },
+    {
+        nombre: "Whis",
+        poder: "Manipulación Temporal",
+        descripcion: "Ángel mentor de Bills."
+    },
+    {
+        nombre: "Jiren",
+        poder: "Puño Definitivo",
+        descripcion: "Guerrero del Universo 11 con un poder extraordinario."
+    }
+];
+
+    //CARGA DE PERSONAJES EN EL SELECTOR
+    personajes.forEach(item=>{
+        let opcion=document.createElement("option")
+        opcion.value=item.nombre
+        opcion.textContent=item.nombre
+        let selector=document.getElementById("personajes")
+        selector.appendChild(opcion)
+    })
+
+        document.getElementById("imprimir").addEventListener("click",()=>{
+            let seleccionado=document.getElementById("personajes").value
+            let busca=personajes.find(item=>item.nombre==seleccionado)
+            let contenedor=document.getElementById("contenedor")
+            contenedor.innerHTML=""
+            let pnombre=document.createElement("p")
+            pnombre.textContent=busca.nombre
+            let ppoder=document.createElement("p")
+            ppoder.textContent=busca.poder
+            let pdescripcion=document.createElement("p")
+            pdescripcion.textContent=busca.descripcion
+            contenedor.appendChild(pnombre)
+            contenedor.appendChild(ppoder)
+            contenedor.appendChild(pdescripcion)
+            
+        })
+
+        document.getElementById("quitar").addEventListener("click",()=>{
+            let contenedor=document.getElementById("contenedor")
+            contenedor.innerHTML=""
+                   
+        })
+    </script>
+</body>
+</html>
