@@ -1,11 +1,52 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Frutería</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            width: 150px;
+            text-align: center;
+        }
+
+        .emoji {
+            font-size: 40px;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        #contenedorCompra {
+            margin-top: 30px;
+            border-top: 2px solid black;
+            padding-top: 20px;
+        }
+    </style>
 </head>
+
 <body>
+
     <script>
+
         const productos = [
             { imagen: "🍌", nombre: "Bananas", precio: 220 },
             { imagen: "🍎", nombre: "Manzanas", precio: 200 },
@@ -14,9 +55,9 @@
             { imagen: "🍍", nombre: "Piñas", precio: 320 },
             { imagen: "🍅", nombre: "Tomates", precio: 140 },
             { imagen: "🥥", nombre: "Cocos", precio: 270 },
-            { imagen: "🍉", nombre: "Sandias", precio: 200 },
+            { imagen: "🍉", nombre: "Sandías", precio: 200 },
             { imagen: "🍑", nombre: "Duraznos", precio: 310 },
-            { imagen: "🫐", nombre: "Arandanos", precio: 650 },
+            { imagen: "🫐", nombre: "Arándanos", precio: 650 },
             { imagen: "🥭", nombre: "Mango", precio: 290 },
             { imagen: "🍇", nombre: "Uvas", precio: 700 },
             { imagen: "🍐", nombre: "Peras", precio: 320 },
@@ -25,45 +66,115 @@
             { imagen: "🍋", nombre: "Limones", precio: 260 }
         ];
 
-        //******creo un div donde meter las card******************************************
-        let contenedor=document.createElement("div")
-        contenedor.className="conteiner"
-        contenedor.id="conteiner"
-        document.body.appendChild(contenedor)
-        //********************************************************************************
-        
-        let compra=[]
-        function comprar(valor){
-            compra.push(valor)
-            let comprado=localStorage.setItem("comprado",JSON.stringify(compra))
+        // Recupera compras previas
+        let compra = JSON.parse(localStorage.getItem("comprado")) || [];
+
+        // Contenedor principal
+        let contenedor = document.createElement("div");
+        contenedor.className = "container";
+        contenedor.id = "contenedorPrincipal";
+        document.body.appendChild(contenedor);
+
+        // Botón carrito
+        let botonCarro = document.createElement("button");
+        botonCarro.textContent = "🛒 Ver carrito";
+        botonCarro.addEventListener("click", carrito);
+        document.body.appendChild(botonCarro);
+
+        // Contenedor del carrito
+        let contenedorCompra = document.createElement("div");
+        contenedorCompra.id = "contenedorCompra";
+        document.body.appendChild(contenedorCompra);
+
+        // Función comprar
+        function comprar(producto) {
+
+            compra.push(producto);
+
+            localStorage.setItem(
+                "comprado",
+                JSON.stringify(compra)
+            );
+
+            alert(`${producto.nombre} agregado al carrito`);
         }
-        //********************************************************************************
-        //por cada fruta dentro del arreglo creo una card y la meto en el contenedor
-        productos.forEach(item=>{
-            let div=document.createElement("div")
-            let h1=document.createElement("h1")
-            let p=document.createElement("p")
-            let pimg=document.createElement("p")
-            let boton=document.createElement("button")
-            boton.textContent="comprar"
-            boton.addEventListener("click",() => comprar(item))
-            pimg.textContent=item.imagen
-            h1.textContent=item.nombre
-            p.textContent=item.precio
-            div.appendChild(pimg)
-            div.appendChild(h1)
-            div.appendChild(p)
-            div.appendChild(boton)
-            contenedor.appendChild(div)
-        
-        })
-        
-        //*********************************************************************************
-        let lista=localStorage.setItem("lista",JSON.stringify(productos))
 
+        // Crear cards
+        productos.forEach(item => {
 
+            let card = document.createElement("div");
+            card.className = "card";
 
-        
+            let emoji = document.createElement("p");
+            emoji.className = "emoji";
+            emoji.textContent = item.imagen;
+
+            let nombre = document.createElement("h3");
+            nombre.textContent = item.nombre;
+
+            let precio = document.createElement("p");
+            precio.textContent = `$${item.precio}`;
+
+            let boton = document.createElement("button");
+            boton.textContent = "Comprar";
+
+            boton.addEventListener("click", () => {
+                comprar(item);
+            });
+
+            card.appendChild(emoji);
+            card.appendChild(nombre);
+            card.appendChild(precio);
+            card.appendChild(boton);
+
+            contenedor.appendChild(card);
+        });
+
+        // Mostrar carrito
+        function carrito() {
+
+            contenedorCompra.innerHTML = "";
+
+            let comprasGuardadas =
+                JSON.parse(localStorage.getItem("comprado")) || [];
+
+            let titulo = document.createElement("h2");
+            titulo.textContent = "Carrito de compras";
+            contenedorCompra.appendChild(titulo);
+
+            if (comprasGuardadas.length === 0) {
+
+                let mensaje = document.createElement("p");
+                mensaje.textContent = "El carrito está vacío";
+                contenedorCompra.appendChild(mensaje);
+                return;
+            }
+
+            let total = 0;
+
+            comprasGuardadas.forEach(item => {
+
+                let producto = document.createElement("p");
+
+                producto.textContent =
+                    `${item.imagen} ${item.nombre} - $${item.precio}`;
+
+                contenedorCompra.appendChild(producto);
+
+                total += item.precio;
+            });
+
+            let totalCompra = document.createElement("h3");
+            totalCompra.textContent = `Total: $${total}`;
+
+            contenedorCompra.appendChild(totalCompra);
+        }
+
+        // Guarda el catálogo
+        localStorage.setItem("lista",JSON.stringify(productos));
+
     </script>
+
 </body>
+
 </html>
