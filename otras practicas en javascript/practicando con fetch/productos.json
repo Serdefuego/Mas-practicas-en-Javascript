@@ -1,0 +1,8 @@
+[
+    { "imagen": "🍌", "nombre": "Bananas", "precio": 220 },
+    { "imagen": "🍎", "nombre": "Manzanas", "precio": 200 },
+    { "imagen": "🥝", "nombre": "Kiwis", "precio": 280 },
+    { "imagen": "🍈", "nombre": "Melón", "precio": 350 }
+]
+
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos</title>
+</head>
+<body>
+
+    <div id="productos"></div>
+
+<script>
+    let url='./productos.json'
+    fetch(url)
+        .then(response => response.json())
+        .then(desplegar)
+        .catch(error => console.error(error));
+
+    function desplegar(productos) {
+        const contenedor = document.getElementById('productos');
+
+        productos.forEach(producto => {
+            contenedor.innerHTML += `
+            <div>
+                <h2>${producto.imagen} ${producto.nombre}</h2>
+                <p>Precio: $${producto.precio}</p>
+            </div>
+        `;
+        });
+    }
+</script>
+
+</body>
+</html>
