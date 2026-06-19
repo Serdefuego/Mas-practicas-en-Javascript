@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>personajes de la saga</h1>
+        <div>
+            <label for="personaje">ingrese personaje</label>
+            <input type="text" id="personaje">
+        </div>
+        <div>
+            <button id="buscar">buscar</button>
+        </div>
+    </div>
+    <div >
+        <label for="escuelas">escuelas dispibles</label>
+        <select name="escuelas" id="escuelas"></select>
+    </div>
+
+
+    <script>
+        fetch('https://hp-api.onrender.com/api/characters')
+            .then(respuesta => respuesta.json())
+            .then(data => { mostrar(data);
+                
+            });
+
+        let rta=[]
+
+        function mostrar(respuesta) {
+            rta = respuesta;
+
+            let select = document.getElementById("escuelas");
+
+            // Obtener solo las casas válidas y sin repetir
+            let casas = [...new Set(
+                respuesta
+                    .map(item => item.house)
+                    .filter(casa => casa !== "")
+            )];
+
+            casas.forEach(casa => {
+                let opcion = document.createElement("option");
+                opcion.value = casa;
+                opcion.textContent = casa;
+                select.appendChild(opcion);
+            });
+        }
+
+        function card(valor){
+            document.body.innerHTML +=
+                        `<div class="personaje">
+                            <div>
+                                <h1 class="nombre">nombre:${valor.name} </h1>
+                            </div>
+                            <div class="edad">
+                                <p>edad:${2026-(valor.yearOfBirth)} </p>
+                            </div>
+                            <div class="imagen">
+                                <img src="${valor.image}" alt="" id="img">
+                            </div>
+                            <div class="descripccion">
+                                <p>${valor.house} </p>
+                            </div>
+                        </div>`
+        }
+
+        function buscar() {
+                let nombre = document.getElementById("personaje").value;
+
+                let encontrado = rta.find(
+                    item => item.name.toLowerCase() === nombre.toLowerCase()
+                );
+
+                encontrado
+                    ? card(encontrado)
+                    : alert("No encontrado");
+                
+        }
+
+        document.getElementById("buscar").onclick = buscar;
+
+
+        
+    </script>
+</body>
+</html>

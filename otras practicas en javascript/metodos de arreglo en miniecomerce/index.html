@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script src="./productos.js"></script>
+    <script>
+
+        productos.forEach(element => {
+            document.write(element.nombre)
+        });
+
+        //realizo una busqueda de bananas 
+
+        if(productos.find(item =>item.nombre=="Bananas")){
+            swal.fire("encontrado")
+        }else{
+            alert("no encontrado")
+        }
+
+        //realizo una sumatoria de todos los precios del arreglo
+        let sumatoriaDeValores=productos.reduce((acumulador,producto)=>acumulador+=producto.precio,0)
+       swal.fire (`la suma de todos los valores es de ${sumatoriaDeValores}`)
+
+        let nombres = productos
+            .filter(producto => producto.nombre[0].toLowerCase().startsWith("c"))
+            .map(producto => producto.nombre);
+
+        alert(nombres);
+        
+    </script>
+</body>
+</html>
